@@ -12,12 +12,12 @@ namespace school_register.Data
         public virtual DbSet<Rooms> Rooms { get; set; }
         public virtual DbSet<Students> Students { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public SchoolRegisterDbContext(DbContextOptions options)
+            : base(options)
         {
-            #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-            optionsBuilder.UseMySql(@"Server=localhost;database=school-register-showroom;uid=root;pwd=root;");
-        }
 
+        }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Branch>(entity =>

@@ -13,6 +13,6 @@ namespace school_register.Model.Entities
         public string Surname { get; set; }
         public DateTime Birthday { get; set; }
 
-        public virtual Classes FkClassNavigation { get; set; }
+        public virtual Classes Class { get; set; }
     }
 }

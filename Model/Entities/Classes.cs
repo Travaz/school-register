@@ -16,7 +16,7 @@ namespace school_register.Model.Entities
         public string Name { get; set; }
 
         public virtual ICollection<Students> Students { get; set; }
-        public virtual Branch FkBranchNavigation { get; set; }
-        public virtual Rooms FkRoomNavigation { get; set; }
+        public virtual Branch Branch { get; set; }
+        public virtual Rooms Room { get; set; }
     }
 }
