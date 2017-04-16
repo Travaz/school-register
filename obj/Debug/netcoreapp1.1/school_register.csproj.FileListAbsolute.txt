@@ -1,0 +1,8 @@
+/Users/tiziana/Documents/Daniel/Programmazione/Repos/school_register/bin/Debug/netcoreapp1.1/school_register.deps.json
+/Users/tiziana/Documents/Daniel/Programmazione/Repos/school_register/bin/Debug/netcoreapp1.1/school_register.runtimeconfig.json
+/Users/tiziana/Documents/Daniel/Programmazione/Repos/school_register/bin/Debug/netcoreapp1.1/school_register.runtimeconfig.dev.json
+/Users/tiziana/Documents/Daniel/Programmazione/Repos/school_register/bin/Debug/netcoreapp1.1/school_register.dll
+/Users/tiziana/Documents/Daniel/Programmazione/Repos/school_register/bin/Debug/netcoreapp1.1/school_register.pdb
+/Users/tiziana/Documents/Daniel/Programmazione/Repos/school_register/obj/Debug/netcoreapp1.1/school_register.AssemblyInfo.cs
+/Users/tiziana/Documents/Daniel/Programmazione/Repos/school_register/obj/Debug/netcoreapp1.1/school_register.dll
+/Users/tiziana/Documents/Daniel/Programmazione/Repos/school_register/obj/Debug/netcoreapp1.1/school_register.pdb
