@@ -73,13 +73,13 @@ namespace school_register.Data
                     .IsRequired()
                     .HasColumnType("char(8)");
 
-                entity.HasOne(d => d.FkBranchNavigation)
+                entity.HasOne(d => d.Branch)
                     .WithMany(p => p.Classes)
                     .HasForeignKey(d => d.FkBranch)
                     .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("fk_classes_branch");
 
-                entity.HasOne(d => d.FkRoomNavigation)
+                entity.HasOne(d => d.Room)
                     .WithMany(p => p.Classes)
                     .HasForeignKey(d => d.FkRoom)
                     .OnDelete(DeleteBehavior.Restrict)
@@ -141,7 +141,7 @@ namespace school_register.Data
                     .IsRequired()
                     .HasColumnType("varchar(80)");
 
-                entity.HasOne(d => d.FkClassNavigation)
+                entity.HasOne(d => d.Class)
                     .WithMany(p => p.Students)
                     .HasForeignKey(d => d.FkClass)
                     .OnDelete(DeleteBehavior.Restrict)
