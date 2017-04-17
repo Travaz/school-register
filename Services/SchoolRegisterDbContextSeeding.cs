@@ -21,18 +21,18 @@ namespace school_register.Services
             Branch Chemistry = new Branch();
             Branch Mechanics = new Branch();
 
-            Rooms DuecentoTre = new Rooms();
-            Rooms DuecentoCinque = new Rooms();
-            Rooms DuecentoOtto = new Rooms();
-            Rooms TrecentoQuattro = new Rooms();
+            Room DuecentoTre = new Room();
+            Room DuecentoCinque = new Room();
+            Room DuecentoOtto = new Room();
+            Room TrecentoQuattro = new Room();
 
-            Classes QuintaBI = new Classes();
-            Classes QuartaAM = new Classes();
-            Classes QuintaAM = new Classes();
-            Classes TerzaCC = new Classes();
+            Class QuintaBI = new Class();
+            Class QuartaAM = new Class();
+            Class QuintaAM = new Class();
+            Class TerzaCC = new Class();
 
-            Students Mario = new Students();
-            Students Daniel = new Students();
+            Student Mario = new Student();
+            Student Daniel = new Student();
 
             if(!_context.Branch.Any())
             {
@@ -63,111 +63,111 @@ namespace school_register.Services
                 };
             }
 
-            if(!_context.Rooms.Any()) 
+            if(!_context.Room.Any()) 
             {
-                DuecentoTre = new Rooms()
+                DuecentoTre = new Room()
                 {
                     IdRoom = 1,
-                    NumeroAula = "203",
+                    NumeroAula = 203,
                     Floor = 2,
                     Lim = true,
                 };
 
-                DuecentoCinque = new Rooms()
+                DuecentoCinque = new Room()
                 {
                     IdRoom = 1,
-                    NumeroAula = "205",
+                    NumeroAula = 205,
                     Floor = 2,
                     Lim = false,
                 };
 
-                DuecentoOtto = new Rooms()
+                DuecentoOtto = new Room()
                 {
                     IdRoom = 1,
-                    NumeroAula = "208",
+                    NumeroAula = 208,
                     Floor = 2,
                     Lim = true,
                 };
 
-                TrecentoQuattro = new Rooms()
+                TrecentoQuattro = new Room()
                 {
                     IdRoom = 1,
-                    NumeroAula = "304",
+                    NumeroAula = 304,
                     Floor = 3,
                     Lim = false,
                 };
             }
 
-            if(!_context.Classes.Any())
+            if(!_context.Class.Any())
             {
-                QuintaBI = new Classes()
+                QuintaBI = new Class()
                 {
                     Name = "5BI",
-                    Branch = ComputerScience,
-                    Room = DuecentoTre
+                    FkBranchNavigation = ComputerScience,
+                    FkRoomNavigation = DuecentoTre
                 };
 
-                QuartaAM = new Classes()
+                QuartaAM = new Class()
                 {
                     Name = "4AM",
-                    Branch = Mechanics,
-                    Room = DuecentoCinque,
+                    FkBranchNavigation = Mechanics,
+                    FkRoomNavigation = DuecentoCinque,
                 };
             
-                QuintaAM = new Classes()
+                QuintaAM = new Class()
                 {
                     Name = "5AM",
-                    Branch = Mechanics,
-                    Room = DuecentoOtto
+                    FkBranchNavigation = Mechanics,
+                    FkRoomNavigation = DuecentoOtto
                 };
 
-                TerzaCC = new Classes()
+                TerzaCC = new Class()
                 {
                     Name = "3CC",
-                    Branch = Chemistry,
-                    Room = TrecentoQuattro
+                    FkBranchNavigation = Chemistry,
+                    FkRoomNavigation = TrecentoQuattro
                 };
             }
 
-            /* Check if there aren't any students in the DB */
-            if (!_context.Students.Any())
+            /* Check if there aren't any Student in the DB */
+            if (!_context.Student.Any())
             {
-                Daniel = new Students()
+                Daniel = new Student()
                 {
                     FiscalCode = "TRVDNL98L30H330A",
                     Name = "Daniel",
                     Surname = "Travaglia",
                     Birthday = DateTime.UtcNow,
                     Email = "travaglia.daniel4@gmail.com",
-                    Class = QuintaBI
+                    FkClassNavigation = QuintaBI
                 };
 
-                Mario = new Students()
+                Mario = new Student()
                 {
                     FiscalCode = "RVNMRO89H04M220F",
                     Name = "Mario",
                     Surname = "Ravanelli",
                     Birthday = DateTime.UtcNow,
                     Email = "ravanelli.mario@gmail.com",
-                    Class = QuintaAM
+                    FkClassNavigation = QuintaAM
                 };
 
                 _context.Branch.Add(ComputerScience);
                 _context.Branch.Add(Mechanics);
                 _context.Branch.Add(Chemistry);
 
-                _context.Rooms.Add(DuecentoTre);
-                _context.Rooms.Add(DuecentoCinque);
-                _context.Rooms.Add(DuecentoOtto);
-                _context.Rooms.Add(TrecentoQuattro);
+                _context.Room.Add(DuecentoTre);
+                _context.Room.Add(DuecentoCinque);
+                _context.Room.Add(DuecentoOtto);
+                _context.Room.Add(TrecentoQuattro);
 
-                _context.Classes.Add(TerzaCC);
-                _context.Classes.Add(QuartaAM);
-                _context.Classes.Add(QuintaAM);
-                _context.Classes.Add(QuintaBI);
+                _context.Class.Add(TerzaCC);
+                _context.Class.Add(QuartaAM);
+                _context.Class.Add(QuintaAM);
+                _context.Class.Add(QuintaBI);
 
-                _context.Students.Add(Daniel);
-                _context.Students.Add(Mario);
+                _context.Student.Add(Daniel);
+                _context.Student.Add(Mario);
 
                 /* Save seeding data async*/
                 await _context.SaveChangesAsync();

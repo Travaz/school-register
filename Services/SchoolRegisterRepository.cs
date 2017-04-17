@@ -7,7 +7,7 @@ namespace school_register.Services
 {
     public interface ISchoolRegisterRepository
     {
-        IEnumerable<Students> GetAllStudents();
+        IEnumerable<Student> GetAllStudents();
     }
     public class SchoolRegisterRepository : ISchoolRegisterRepository
     {
@@ -18,9 +18,9 @@ namespace school_register.Services
             _context = context;
         }
 
-        public IEnumerable<Students> GetAllStudents()
+        public IEnumerable<Student> GetAllStudents()
         {
-            return _context.Students.ToList();
+            return _context.Student.ToList();
         }
     }
 

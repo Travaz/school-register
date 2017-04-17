@@ -8,16 +8,15 @@ namespace school_register.Data
     public partial class SchoolRegisterDbContext : DbContext
     {
         public virtual DbSet<Branch> Branch { get; set; }
-        public virtual DbSet<Classes> Classes { get; set; }
-        public virtual DbSet<Rooms> Rooms { get; set; }
-        public virtual DbSet<Students> Students { get; set; }
+        public virtual DbSet<Class> Class { get; set; }
+        public virtual DbSet<Room> Room { get; set; }
+        public virtual DbSet<Student> Student { get; set; }
 
         public SchoolRegisterDbContext(DbContextOptions options)
             : base(options)
         {
 
         }
-        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Branch>(entity =>
@@ -39,17 +38,15 @@ namespace school_register.Data
                     .IsRequired()
                     .HasColumnType("varchar(45)");
 
-                entity.Property(e => e.StartDate)
-                    .HasColumnName("StartDate")
-                    .HasColumnType("date");
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<Classes>(entity =>
+            modelBuilder.Entity<Class>(entity =>
             {
-                entity.HasKey(e => e.IdClass)
-                    .HasName("PK_classes");
+                entity.HasKey(e => e.Name)
+                    .HasName("PK_class");
 
-                entity.ToTable("classes");
+                entity.ToTable("class");
 
                 entity.HasIndex(e => e.FkBranch)
                     .HasName("fk_classes_branch1_idx");
@@ -57,9 +54,7 @@ namespace school_register.Data
                 entity.HasIndex(e => e.FkRoom)
                     .HasName("fk_classes_rooms1_idx");
 
-                entity.Property(e => e.IdClass)
-                    .HasColumnName("idClass")
-                    .HasColumnType("int(11)");
+                entity.Property(e => e.Name).HasColumnType("char(8)");
 
                 entity.Property(e => e.FkBranch)
                     .HasColumnName("fk_branch")
@@ -69,29 +64,24 @@ namespace school_register.Data
                     .HasColumnName("fk_room")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasColumnType("char(8)");
-
-                entity.HasOne(d => d.Branch)
-                    .WithMany(p => p.Classes)
+                entity.HasOne(d => d.FkBranchNavigation)
+                    .WithMany(p => p.Class)
                     .HasForeignKey(d => d.FkBranch)
-                    .OnDelete(DeleteBehavior.Restrict)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_classes_branch");
 
-                entity.HasOne(d => d.Room)
-                    .WithMany(p => p.Classes)
+                entity.HasOne(d => d.FkRoomNavigation)
+                    .WithMany(p => p.Class)
                     .HasForeignKey(d => d.FkRoom)
-                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("fk_classes_rooms");
             });
 
-            modelBuilder.Entity<Rooms>(entity =>
+            modelBuilder.Entity<Room>(entity =>
             {
                 entity.HasKey(e => e.IdRoom)
-                    .HasName("PK_rooms");
+                    .HasName("PK_room");
 
-                entity.ToTable("rooms");
+                entity.ToTable("room");
 
                 entity.Property(e => e.IdRoom)
                     .HasColumnName("idRoom")
@@ -103,49 +93,44 @@ namespace school_register.Data
                     .HasColumnName("LIM")
                     .HasColumnType("tinyint(1)");
 
-                entity.Property(e => e.NumeroAula)
-                    .IsRequired()
-                    .HasColumnType("char(3)");
+                entity.Property(e => e.NumeroAula).HasColumnType("int(11)");
             });
 
-            modelBuilder.Entity<Students>(entity =>
+            modelBuilder.Entity<Student>(entity =>
             {
                 entity.HasKey(e => e.FiscalCode)
-                    .HasName("PK_students");
+                    .HasName("PK_student");
 
-                entity.ToTable("students");
+                entity.ToTable("student");
 
                 entity.HasIndex(e => e.FkClass)
-                    .HasName("fk_students_classes1_idx");
+                    .HasName("fk_student_class1_idx");
 
                 entity.Property(e => e.FiscalCode).HasColumnType("varchar(16)");
 
                 entity.Property(e => e.Age).HasColumnType("int(11)");
 
+                entity.Property(e => e.Birthday).HasColumnType("datetime");
+
                 entity.Property(e => e.Email).HasColumnType("varchar(80)");
 
                 entity.Property(e => e.FkClass)
+                    .IsRequired()
                     .HasColumnName("fk_class")
-                    .HasColumnType("int(11)");
+                    .HasColumnType("char(8)");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnType("varchar(80)");
 
-                entity.Property(e => e.Birthday)
-                    .IsRequired()
-                    .HasColumnName("Birthday")
-                    .HasColumnType("date");
-
                 entity.Property(e => e.Surname)
                     .IsRequired()
                     .HasColumnType("varchar(80)");
 
-                entity.HasOne(d => d.Class)
-                    .WithMany(p => p.Students)
+                entity.HasOne(d => d.FkClassNavigation)
+                    .WithMany(p => p.Student)
                     .HasForeignKey(d => d.FkClass)
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("fk_students_classes");
+                    .HasConstraintName("fk_student_class");
             });
         }
     }

@@ -7,14 +7,14 @@ namespace school_register.Model.Entities
     {
         public Branch()
         {
-            Classes = new HashSet<Classes>();
+            Class = new HashSet<Class>();
         }
 
         public int IdBranch { get; set; }
         public string Description { get; set; }
         public string Name { get; set; }
-        public DateTime StartDate{ get; set; }
+        public DateTime StartDate { get; set; }
 
-        public virtual ICollection<Classes> Classes { get; set; }
+        public virtual ICollection<Class> Class { get; set; }
     }
 }
