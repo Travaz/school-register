@@ -1,0 +1,31 @@
+@model IEnumerable<Student>
+
+@{
+    ViewBag.Title = "Students";
+}
+
+<!-- Tables with students -->
+<div id="students" class="col s12">
+    <div class="row">
+
+        <div asp-action="Create" class="card hiddendiv">Create new</div> 
+
+        @foreach (var student in Model)
+        {
+            <div class="col s12 m4 l2">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="~/images/students/student256.png">
+                        <span class="card-title">@student.Name @student.Surname</span>
+                        <a asp-action="Edit" asp-route-id="@student.FiscalCode" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                        <!--<a asp-action="Delete" asp-route-id="@student.FiscalCode" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i>Delete</a>-->
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+<div id="classes" class="col s12">Classes</div>
+<div id="specializations" class="col s12">Specializations</div>

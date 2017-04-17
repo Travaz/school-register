@@ -1,0 +1,93 @@
+﻿students
+
+	fiscalCode			(VARCHAR(16)) 
+	name				(VARCHAR(80))
+	surname				(VARCHAR(80))
+	birthday			(DATE)
+	email				(VARCHAR(80))
+	fk_class (FK)		(CHAR(8)) 		[FK]
+
+students_parents
+
+	fk_parent			(VARCHAR(16))	[FK]
+	fk_student			(VARCHAR(16))	[FK]
+
+parents
+
+	fiscalCode			(VARCHAR(16)) 
+	name				(VARCHAR(80))
+	surname				(VARCHAR(80))
+	birthday			(DATE)
+	gender				(ENUM('father', 'mother'))
+	phone				(VARCHAR(15))
+	email				(VARCHAR(80))
+
+subject
+
+	name				(VARCHAR(80))
+
+topics 
+
+	idTopic				(INT)
+	description			(TEXT)
+	fk_subject			(VARCHAR(80))	[FK]
+
+marks
+
+	date				(DATE)
+	typology			(ENUM('scritta', 'orale', 'pratica'))
+	inAvarage			(BOOLEAN)
+	mark				(INT)
+	fk_student			(VARCHAR(16)) 	[FK]
+	fk_topic			(INT)			[FK]
+
+specializations
+
+	idSpecialization	(INT)
+	name				(VARCHAR(45)) 
+	startDate			(DATE)
+	description			(VARCHAR(45))
+
+rooms
+
+	idRoom				(CHAR(2))
+	floor				(INT)
+	LIM					(BOOLEAN(0,1))
+
+classes
+
+	name				(CHAR(8))
+	fk_specialization	(INT) 			[FK]
+	fk_room				(CHAR(2)) 		[FK]
+
+teachers
+
+	fiscalCode			(VARCHAR(16)) 
+	name				(VARCHAR(80))
+	surname				(VARCHAR(80))
+	birthday			(DATE)
+	gender				(ENUM('father', 'mother'))
+	phone				(VARCHAR(15))
+	email				(VARCHAR(80))
+	fk_assistant			(VARCHAR(16))	[FK]
+	fk_subject			(VARCHAR(80))	[FK]
+
+lessons
+
+	idLesson			(INT)
+	start				(TIME)
+	end					(TIME)
+	withAssistant		(BOOL)
+	fk_teacher			(VARCHAR(16)) 	[FK]
+	fk_subject			(VARCHAR(80))	[FK]
+	fk_class			(CHAR(8))		[FK]	
+
+lesson_description
+
+	fk_lesson			(INT)			[FK]
+	fk_topic			(INT)			[FK]
+
+
+
+
+	
