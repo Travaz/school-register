@@ -32,7 +32,7 @@ namespace school_register.Data
 
                 entity.Property(e => e.Description)
                     .IsRequired()
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("text");
 
                 entity.Property(e => e.Name)
                     .IsRequired()

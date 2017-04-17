@@ -24,7 +24,7 @@ namespace school_register.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("varchar(45)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()

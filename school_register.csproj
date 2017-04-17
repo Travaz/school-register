@@ -1,20 +1,44 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
+    <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="wwwroot\images\learning (1).png" />
+    <Content Include="wwwroot\images\learning.png" />
+    <Content Include="wwwroot\images\student128.png" />
+    <Content Include="wwwroot\images\student256.png" />
+    <Content Include="wwwroot\images\students\student128.png" />
+    <Content Include="wwwroot\images\students\student256.png" />
+    <Content Include="wwwroot\js\student-edit.js" />
+    <Content Include="wwwroot\js\student\student-edit.js" />
+    <Content Include="wwwroot\js\student\student.js" />
+    <Content Include="wwwroot\js\student\student_edit.js" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="1.1.1" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.Dotnet" Version="1.0.0">
-    </DotNetCliToolReference>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.Dotnet" Version="1.0.0"></DotNetCliToolReference>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0"></DotNetCliToolReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="wwwroot\images\classes\" />
+    <Folder Include="wwwroot\images\branches\" />
+    <Folder Include="wwwroot\images\rooms\" />
   </ItemGroup>
 </Project>

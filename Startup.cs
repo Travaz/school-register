@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using school_register.Data;
+using school_register.Services;
 
 namespace school_register
 {
@@ -33,34 +31,35 @@ namespace school_register
             services.AddDbContext<SchoolRegisterDbContext>(options => 
                     options.UseMySql(Configuration.GetConnectionString("Local")));
 
+            // Db services
+            services.AddScoped<ISchoolRegisterRepository, SchoolRegisterRepository>();
+            services.AddTransient<SchoolRegisterDbContextSeeding>();
+
             // Add framework services.
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, SchoolRegisterDbContextSeeding seeder)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            loggerFactory.AddConsole();
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
             }
 
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            seeder.EnsureSeedData().Wait();
+
+            app.UseMvc(configureRoutes);
+        }
+
+        private void configureRoutes(IRouteBuilder routeBuilder)
+        {
+            routeBuilder.MapRoute("Default",
+                    "{controller=Student}/{action=Index}/{id?}");
         }
     }
 }
