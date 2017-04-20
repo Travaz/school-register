@@ -90,9 +90,8 @@ namespace school_register.Migrations
 
             modelBuilder.Entity("school_register.Model.Entities.Student", b =>
                 {
-                    b.Property<string>("FiscalCode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(16)");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("Age")
                         .HasColumnType("int(11)");
@@ -102,6 +101,10 @@ namespace school_register.Migrations
 
                     b.Property<string>("Email")
                         .HasColumnType("varchar(80)");
+
+                    b.Property<string>("FiscalCode")
+                        .IsRequired()
+                        .HasColumnType("varchar(16)");
 
                     b.Property<string>("FkClass")
                         .IsRequired()
@@ -116,7 +119,7 @@ namespace school_register.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(80)");
 
-                    b.HasKey("FiscalCode")
+                    b.HasKey("ID")
                         .HasName("PK_student");
 
                     b.HasIndex("FkClass")

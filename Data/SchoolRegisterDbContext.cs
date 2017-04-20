@@ -98,7 +98,7 @@ namespace school_register.Data
 
             modelBuilder.Entity<Student>(entity =>
             {
-                entity.HasKey(e => e.FiscalCode)
+                entity.HasKey(e => e.ID)
                     .HasName("PK_student");
 
                 entity.ToTable("student");
@@ -106,13 +106,17 @@ namespace school_register.Data
                 entity.HasIndex(e => e.FkClass)
                     .HasName("fk_student_class1_idx");
 
-                entity.Property(e => e.FiscalCode).HasColumnType("varchar(16)");
+                entity.Property(e => e.FiscalCode)
+                    .HasColumnType("varchar(16)");
 
-                entity.Property(e => e.Age).HasColumnType("int(11)");
+                entity.Property(e => e.Age)
+                    .HasColumnType("int(11)");
 
-                entity.Property(e => e.Birthday).HasColumnType("datetime");
+                entity.Property(e => e.Birthday)
+                    .HasColumnType("datetime");
 
-                entity.Property(e => e.Email).HasColumnType("varchar(80)");
+                entity.Property(e => e.Email)
+                    .HasColumnType("varchar(80)");
 
                 entity.Property(e => e.FkClass)
                     .IsRequired()

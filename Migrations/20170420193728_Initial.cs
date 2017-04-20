@@ -68,18 +68,19 @@ namespace school_register.Migrations
                 name: "student",
                 columns: table => new
                 {
-                    FiscalCode = table.Column<string>(type: "varchar(16)", nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Age = table.Column<int>(type: "int(11)", nullable: false),
                     Birthday = table.Column<DateTime>(type: "datetime", nullable: false),
                     Email = table.Column<string>(type: "varchar(80)", nullable: true),
+                    FiscalCode = table.Column<string>(type: "varchar(16)", nullable: false),
                     fk_class = table.Column<string>(type: "char(8)", nullable: false),
                     Name = table.Column<string>(type: "varchar(80)", nullable: false),
                     Surname = table.Column<string>(type: "varchar(80)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_student", x => x.FiscalCode);
+                    table.PrimaryKey("PK_student", x => x.ID);
                     table.ForeignKey(
                         name: "fk_student_class",
                         column: x => x.fk_class,

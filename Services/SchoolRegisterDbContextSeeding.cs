@@ -106,7 +106,7 @@ namespace school_register.Services
                     FiscalCode = "TRVDNL98L30H330A",
                     Name = "Daniel",
                     Surname = "Travaglia",
-                    Birthday = DateTime.UtcNow,
+                    Birthday = DateTime.Parse("1998/12"),
                     Email = "travaglia.daniel4@gmail.com",
                     FkClassNavigation = QuintaBI
                 };
@@ -141,8 +141,7 @@ namespace school_register.Services
             }
 
             /* Save seeding data async*/
-            await _context.SaveChangesAsync();
-        
+            await _context.SaveChangesAsync();      
         }
     }
 }

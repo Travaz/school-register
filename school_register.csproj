@@ -10,10 +10,7 @@
     <Content Include="wwwroot\images\student256.png" />
     <Content Include="wwwroot\images\students\student128.png" />
     <Content Include="wwwroot\images\students\student256.png" />
-    <Content Include="wwwroot\js\student-edit.js" />
-    <Content Include="wwwroot\js\student\student-edit.js" />
     <Content Include="wwwroot\js\student\student.js" />
-    <Content Include="wwwroot\js\student\student_edit.js" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />

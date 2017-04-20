@@ -1,4 +1,3 @@
-<!-- To be deleted -->
 @model school_register.Model.Entities.Student
 
 @{
@@ -12,7 +11,25 @@
     <h4>Student</h4>
     <hr />
     <dl class="dl-horizontal">
-        <input type="hidden" asp-for="FiscalCode" />
+        <input type="hidden" asp-for="ID" />
+        <dt>
+            @Html.DisplayNameFor(model => model.FiscalCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FiscalCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Age)
         </dt>
@@ -30,18 +47,6 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Surname)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Surname)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.FkClassNavigation)
