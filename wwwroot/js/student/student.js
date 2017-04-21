@@ -1,12 +1,9 @@
 ﻿$(document).ready(function () {
+
+    // Render select lists
     $('select').material_select();
 
-    $('.datepicker').pickadate({
-        selectMonths: true, 
-        selectYears: 25,
-        formatSubmit: 'yyyy-mm-dd',
-    });
-
+    // Enable character counter validation
     $('input#fiscalcode').characterCounter();  
 
 });
