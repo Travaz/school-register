@@ -1,60 +1,98 @@
-@model school_register.Model.Entities.Student
+@model Student
 
 @{
-    ViewData["Title"] = "Details";
+    ViewBag.Title = $"Details - {Model.Name} {Model.Surname}";
 }
 
-<h2>Details</h2>
+<!-- Section that renders after jQuery plugin-->
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/student/student.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
-<div>
-    <h4>Student</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FiscalCode)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FiscalCode)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Surname)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Surname)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Age)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Birthday)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Birthday)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FkClassNavigation)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FkClassNavigation.Name)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="row">
+    <div class="container">
+        <div class="section">
+
+            <!-- Student.ID -->
+            <input type="hidden" asp-for="ID" />
+
+            <!-- Student image -->
+            <div class="row">
+                <div class="col s12 m6 offset-m3 center">
+                    <img class="circle responsive-img" src="~/images/students/student256.png" />
+                    <h4 class="">@Model.Name @Model.Surname</h4>
+                </div>
+            </div>
+
+
+            <div class="row student-details">
+
+                <ul class="collapsible popout col s12" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">person_pin</i>@Html.DisplayNameFor(student => student.FiscalCode)</div>
+                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.FiscalCode)</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(student => student.Name)</div>
+                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.Name)</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(student => student.Surname)</div>
+                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.Surname)</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">today</i>@Html.DisplayNameFor(student => student.Birthday)</div>
+                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.Birthday.Date)</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">not_interested</i>@Html.DisplayNameFor(student => student.Age)</div>
+                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.Age)</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">email</i>@Html.DisplayNameFor(student => student.Email)</div>
+                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.Email)</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">class</i>@Html.DisplayNameFor(student => student.FkClassNavigation)</div>
+                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.FkClassNavigation.Name)</span></div>
+                    </li>
+                </ul>
+
+                <form method="get" class="col s12 m4">
+                    <div class="form-action">
+                        <button class="btn waves-effect waves-light col s12 teal" asp-action="Edit" asp-route-id="@Model.ID">
+                            Edit
+                            <i class="material-icons right">mode_edit</i>
+                        </button>
+                    </div>
+                </form>
+
+                <form method="get" class="col s12 m4">
+                    <div class="form-action">
+                        <a href="#delete-student-@Model.ID" class="btn waves-effect waves-light col s12 red daken-1">
+                            Remove
+                            <i class="material-icons right">delete</i>
+                        </a>
+                    </div>
+                </form> 
+
+                <form method="get" class="col s12 m4">
+                    <div class="form-action">
+                        <button class="btn modal-close waves-effect waves-light col s12 yellow darken-2" asp-action="Index">
+                            Back
+                            <i class="material-icons right">settings_backup_restore</i>
+                        </button>
+                    </div>
+                </form>
+               
+            </div>   
+            
+            <!-- Modal Structure -->
+            @Html.Partial("Delete", Model)
+
+        </div>
+    </div>
 </div>

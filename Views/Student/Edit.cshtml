@@ -1,7 +1,7 @@
 @model Student
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = $"Edit - {Model.Name} {Model.Surname}";
 }
 
 <!-- Section that renders after jQuery plugin-->
@@ -26,7 +26,7 @@
 
                 <!-- Student image -->
                 <div class="row">
-                    <div class="col s12 m4 offset-m4">
+                    <div class="col s12 m6 offset-m3 center">
                         <img class="circle responsive-img" src="~/images/students/student256.png" />
                     </div>
                 </div>
@@ -105,10 +105,16 @@
                 </div>
                 
                 <div class="row">
-                    <div class="col s12">
-                        <button class="btn waves-effect waves-light col s12" type="submit">
+                    <div class="col s12 m6">
+                        <button class="btn waves-effect waves-light col s12 green accent-4"  type="submit">
                             Save
                             <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                    <div class="col s12 m6">
+                        <button class="btn waves-effect waves-light col s12" type="reset">
+                            Reset Change
+                            <i class="material-icons right">loop</i>
                         </button>
                     </div>
                 </div>
@@ -116,25 +122,27 @@
             </form>
 
             <form method="get" class="col s12 m6">
-                <div class="col s12">
-                    <button class="btn waves-effect waves-light col s12 grey lighten-4" asp-action="Index">
+                <div class="form-action">
+                    <button class="btn waves-effect waves-light col s12 yellow darken-2" asp-action="Index">
                         Back
-                        <i class="material-icons right">loop</i>
+                        <i class="material-icons right">settings_backup_restore</i>
                     </button>
                 </div>
             </form>
 
             <form method="get" class="col s12 m6">
-                <div class="col s12">
-                    <button class="btn waves-effect waves-light col s12 red daken-1" asp-action="Delete" asp-route-id="@Model.FiscalCode">
-                        Delete
+                <div class="form-action">
+                    <a href="#delete-student-@Model.ID" class="btn waves-effect waves-light col s12 red daken-1">
+                        Remove
                         <i class="material-icons right">delete</i>
-                    </button>
-                </div>
+                    </a>
+                </div>         
             </form>
 
+            <!-- Modal Structure -->
+            @Html.Partial("Delete", Model)
+        
         </div>
-
     </div>
 </div>
 

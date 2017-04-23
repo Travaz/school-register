@@ -9,6 +9,7 @@ namespace school_register.Model.Entities
     {
         public int ID { get; set; }
 
+        [Display(Name="Fiscal Code")]
         [Required(ErrorMessage = "Il codice fiscale è richiesto")]
         [FiscalCodeValidation]
         public string FiscalCode { get; set; }
@@ -22,6 +23,8 @@ namespace school_register.Model.Entities
         [Required(ErrorMessage = "L'età è richiesta")]
         public int Age { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "La data di nascita è richiesta")]
         public DateTime Birthday { get; set; }
 
@@ -30,6 +33,7 @@ namespace school_register.Model.Entities
 
         public string Email { get; set; }
 
+        [Display(Name = "Classe")]
         public virtual Class FkClassNavigation { get; set; }
 
     }

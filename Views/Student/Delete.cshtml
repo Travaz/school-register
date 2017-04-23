@@ -1,65 +1,42 @@
 @model school_register.Model.Entities.Student
 
-@{
-    ViewData["Title"] = "Delete";
-}
-
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Student</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <input type="hidden" asp-for="ID" />
-        <dt>
-            @Html.DisplayNameFor(model => model.FiscalCode)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FiscalCode)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Surname)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Surname)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Age)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Birthday)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Birthday)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FkClassNavigation)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FkClassNavigation.Name)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            <a asp-action="Index">Back to List</a>
+<!-- Modal Structure -->
+<div id="delete-student-@Model.ID" class="modal">
+    <nav>
+        <div class="nav-wrapper teal">
+            <a class="brand-logo center">Delete confirmation</a>
         </div>
-    </form>
+    </nav>
+    <div class="student-delete">
+
+        <div class="modal-content center">
+            <h5 class="teal-text">@Model.Name @Model.Surname</h5>
+            <p>Are you sure you want to remove this student? By doing so, all the data will be lost all in a sudden</p>
+        </div>
+
+        <div class="modal-footer">
+
+            <div class="col s12 m6">
+                <form asp-action="Delete" method="post">
+                    <div class="form-action">
+                        <button class="btn waves-effect waves-light col s12 red daken-1" asp-action="Delete" asp-route-id="@Model.ID">
+                            Confirm
+                            <i class="material-icons right">delete</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col s12 m6">
+                <div class="form-action">
+                    <button class="btn modal-close waves-effect waves-light col s12 yellow darken-2" asp-action="Index">
+                        Cancel
+                        <i class="material-icons right">settings_backup_restore</i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 </div>
