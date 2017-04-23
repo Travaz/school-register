@@ -10,9 +10,8 @@ namespace school_register.Model.Entities
             Class = new HashSet<Class>();
         }
 
-        public int IdBranch { get; set; }
-        public string Description { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public DateTime StartDate { get; set; }
 
         public virtual ICollection<Class> Class { get; set; }

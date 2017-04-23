@@ -4,12 +4,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using school_register.Data;
+using school_register.Model.Entities;
 
 namespace school_register.Migrations
 {
     [DbContext(typeof(SchoolRegisterDbContext))]
-    [Migration("20170417133416_Initial")]
-    partial class Initial
+    [Migration("20170423182216_Initial#2")]
+    partial class Initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,23 +19,18 @@ namespace school_register.Migrations
 
             modelBuilder.Entity("school_register.Model.Entities.Branch", b =>
                 {
-                    b.Property<int>("IdBranch")
+                    b.Property<string>("Name")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("idBranch")
-                        .HasColumnType("int(11)");
+                        .HasColumnType("varchar(45)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(45)");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime");
 
-                    b.HasKey("IdBranch")
+                    b.HasKey("Name")
                         .HasName("PK_branch");
 
                     b.ToTable("branch");
@@ -46,9 +42,9 @@ namespace school_register.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(8)");
 
-                    b.Property<int?>("FkBranch")
+                    b.Property<string>("FkBranch")
                         .HasColumnName("fk_branch")
-                        .HasColumnType("int(11)");
+                        .HasColumnType("varchar(45)");
 
                     b.Property<int?>("FkRoom")
                         .HasColumnName("fk_room")
@@ -68,9 +64,8 @@ namespace school_register.Migrations
 
             modelBuilder.Entity("school_register.Model.Entities.Room", b =>
                 {
-                    b.Property<int>("IdRoom")
+                    b.Property<int>("NumeroAula")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("idRoom")
                         .HasColumnType("int(11)");
 
                     b.Property<int>("Floor")
@@ -80,10 +75,7 @@ namespace school_register.Migrations
                         .HasColumnName("LIM")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("NumeroAula")
-                        .HasColumnType("int(11)");
-
-                    b.HasKey("IdRoom")
+                    b.HasKey("NumeroAula")
                         .HasName("PK_room");
 
                     b.ToTable("room");
@@ -91,9 +83,8 @@ namespace school_register.Migrations
 
             modelBuilder.Entity("school_register.Model.Entities.Student", b =>
                 {
-                    b.Property<string>("FiscalCode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(16)");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("Age")
                         .HasColumnType("int(11)");
@@ -104,10 +95,17 @@ namespace school_register.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("varchar(80)");
 
+                    b.Property<string>("FiscalCode")
+                        .IsRequired()
+                        .HasColumnType("varchar(16)");
+
                     b.Property<string>("FkClass")
                         .IsRequired()
                         .HasColumnName("fk_class")
                         .HasColumnType("char(8)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int(11)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -117,7 +115,7 @@ namespace school_register.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(80)");
 
-                    b.HasKey("FiscalCode")
+                    b.HasKey("ID")
                         .HasName("PK_student");
 
                     b.HasIndex("FkClass")

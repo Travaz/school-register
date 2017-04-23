@@ -69,80 +69,113 @@ namespace school_register.Services
                 Class QuintaBI = new Class()
                 {
                     Name = "5BI",
-                    FkBranchNavigation = ComputerScience,
-                    FkRoomNavigation = DuecentoTre
+                    FkBranch = "Computer Science",
+                    FkRoom = 203
                 };
                 Class QuartaAM = new Class()
                 {
                     Name = "4AM",
-                    FkBranchNavigation = Mechanics,
-                    FkRoomNavigation = DuecentoCinque,
+                    FkBranch = "Chemistry",
+                    FkRoom = 205,
                 };
                 Class QuintaAM = new Class()
                 {
                     Name = "5AM",
-                    FkBranchNavigation = Mechanics,
-                    FkRoomNavigation = DuecentoOtto
+                    FkBranch = "Chemistry",
+                    FkRoom = 208,
                 };
                 Class TerzaCC = new Class()
                 {
                     Name = "3CC",
-                    FkBranchNavigation = Chemistry,
-                    FkRoomNavigation = TrecentoQuattro
+                    FkBranch = "Mechanics",
+                    FkRoom = 304,
                 };
 
             /* Students */
                 Student Mario = new Student()
                 {
                     FiscalCode = "RVNMRO89H04M220F",
+                    Gender = Gender.Male,
                     Name = "Mario",
-                    Surname = "Ravanelli",
-                    Birthday = DateTime.UtcNow,
-                    Email = "ravanelli.mario@gmail.com",
-                    FkClassNavigation = QuintaAM
+                    Surname = "Ravanelli",                   
+                    Birthday = DateTime.Parse("1996/01/30"),
+                    Email = "mario.ravanelli@marconirovereto.it",
+                    FkClass = "5AM"
+                };
+                Student Aurora = new Student()
+                {
+                    FiscalCode = "BNDAUR00M08G508D",
+                    Gender = Gender.Female,
+                    Name = "Aurora",
+                    Surname = "Benedetti",
+                    Birthday = DateTime.Parse("2000/04/08"),
+                    Email = "aurora.benedetti@marconirovereto.it",
+                    FkClass = "3CC"
+                };
+                Student Chiara = new Student()
+                {
+                    FiscalCode = "PISCAR00M14T714A",
+                    Gender = Gender.Female,
+                    Name = "Chiara",
+                    Surname = "Pisoni",
+                    Birthday = DateTime.Parse("2000/08/14"),
+                    Email = "chiara.pisoni@marconirovereto.it",
+                    FkClass = "3CC"
                 };
                 Student Daniel = new Student()
                 {
                     FiscalCode = "TRVDNL98L30H330A",
+                    Gender = Gender.Male,
                     Name = "Daniel",
                     Surname = "Travaglia",
-                    Birthday = DateTime.UtcNow,
-                    Email = "travaglia.daniel4@gmail.com",
-                    FkClassNavigation = QuintaBI
+                    Birthday = DateTime.Parse("1998/07/30"),
+                    Email = "daniel.travaglia@marconirovereto.it",
+                    FkClass = "5BI"
                 };
+                Student Manuele = new Student()
+                {
+                    FiscalCode = "MSTMNL99L25H325X",
+                    Gender = Gender.Male,
+                    Name = "Manuele",
+                    Surname = "Maistri",
+                    Birthday = DateTime.Parse("1999/12/25"),
+                    Email = "manuele.maistri@marconirovereto.it",
+                    FkClass = "4AM"
+                };
+                Student Sara = new Student()
+                {
+                    FiscalCode = "DBRSAR00J03M103F",
+                    Gender = Gender.Female,
+                    Name = "Sara",
+                    Surname = "De Baroni",
+                    Birthday = DateTime.Parse("1998/10/03"),
+                    Email = "sara.debaroni@marconirovereto.it",
+                    FkClass = "3CC"
+                };
+
 
             if (!_context.Branch.Any())
             {
-                _context.Branch.Add(ComputerScience);
-                _context.Branch.Add(Mechanics);
-                _context.Branch.Add(Chemistry);
+                await _context.Branch.AddRangeAsync(ComputerScience, Mechanics, Chemistry);
             }
 
             if(!_context.Room.Any()) 
             {
-                _context.Room.Add(DuecentoTre);
-                _context.Room.Add(DuecentoCinque);
-                _context.Room.Add(DuecentoOtto);
-                _context.Room.Add(TrecentoQuattro);
+                await _context.Room.AddRangeAsync(DuecentoTre, DuecentoCinque, DuecentoOtto, TrecentoQuattro);
             }
 
             if(!_context.Class.Any())
             {
-                _context.Class.Add(TerzaCC);
-                _context.Class.Add(QuartaAM);
-                _context.Class.Add(QuintaAM);
-                _context.Class.Add(QuintaBI);
+                await _context.Class.AddRangeAsync(TerzaCC, QuartaAM, QuintaAM, QuintaBI);
             }
 
             if (!_context.Student.Any())
             {
-                _context.Student.Add(Daniel);
-                _context.Student.Add(Mario);
+                await _context.Student.AddRangeAsync(Mario, Aurora, Chiara, Daniel, Manuele, Sara);
             }
 
             /* Save seeding data async*/
-            await _context.SaveChangesAsync();
-        
+            await _context.SaveChangesAsync();      
         }
     }
 }

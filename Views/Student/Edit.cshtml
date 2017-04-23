@@ -1,103 +1,165 @@
 @model Student
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = $"Edit - {Model.Name} {Model.Surname}";
 }
 
+<!-- Section that renders after jQuery plugin-->
 @section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/js/student/student.js"></script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
 <div class="row">
 
-    <div class="section">
+    <div class="container">
 
-        <!-- Student image -->
-        <div class="col s12 m4">
-            <div class="col s8 m8 l6 offset-s2 offset-m2 offset-l3">
-                <img class="circle responsive-img" src="~/images/students/student256.png" />
-            </div>
-        </div>
+        <div class="section">
 
-        <!-- Student personal data -->
-        <form asp-action="Edit" method="post" class="col s12 m8">
+            <!-- Student personal data -->
+            <form asp-action="Edit" method="post" class="col s12">
 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <!-- Student.ID -->
+                <input type="hidden" asp-for="ID" />
 
-            <div class="row">
-                <div class="input-field col s12">
-                    <input asp-for="FiscalCode" class="validate" id="fiscal_code" type="text">
-                    <span class="accent-1" asp-validation-for="FiscalCode"></span>
-                    <label asp-for="FiscalCode" class="active">Fiscal Code</label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="input-field col s6">
-                    <input asp-for="Name" id="first_name" type="text" class="validate">
-                    <label asp-for="Name" class="active">First Name</label>
-                </div>
-                <div class="input-field col s6">
-                    <input asp-for="Surname" id="last_name" type="text" class="validate">
-                    <label asp-for="Surname" class="active">Last Name</label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="material-icons prefix">email</i>
-                    <input asp-for="Email" id="email" class="validate">
-                    <label asp-for="Email" for="email" data-error="wrong" data-success="right">Email</label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">today</i>
-                    <input asp-for="Birthday" type="date" class="datepicker">
-                    <label asp-for="Birthday" for="birthday" class="active">Birthday</label>
-                </div>
+                <!-- Student image -->
                 <div class="row">
-                    <div class="input-field col s6">
-                        <input asp-for="Age" id="age" type="text" class="validate">
-                        <label asp-for="Age" class="active">Age</label>
+                    <div class="col s12 m6 offset-m3 center">
+                        @if (Model.Gender == Gender.Female)
+                        {
+                            <img src="~/images/students/studentfemale256.png" />
+                        }
+                        else
+                        {
+                            <img src="~/images/students/studentmale256.png" />
+                        }
                     </div>
                 </div>
-            </div>
 
-            <div class="input-field col s12">
-                <select asp-for="FkClass" asp-items="ViewBag.FkClass">
-                    <option value="" disabled selected>Choose your option</option>
-                </select>
-                <label asp-for="FkClass">Classe</label>
-            </div>
+                <div class="row">
+                   
+                    <!-- Student.FiscalCode -->
+                    <div class="input-field col s12 m6">
+                        <input asp-for="FiscalCode" class="validate" id="fiscal_code" type="text">
+                        <span class="red-text" asp-validation-for="FiscalCode"></span>
+                        <label asp-for="FiscalCode" class="active">Fiscal Code</label>
+                    </div>
 
-            <div class="row">
+                    <!-- Student.Gender-->
+                    <div class="input-field col s12 m6">
+                        <select asp-for="Gender" asp-items="@Html.GetEnumSelectList(typeof(Gender))">
+                            <option value="" disabled selected>Choose your option</option>
+                        </select>
+                        <label asp-for="Gender">Gender</label>
+                    </div>
 
-                <div class="col s12 m4">
-                    <button class="btn waves-effect waves-light col s12" type="submit">
-                        Save
-                        <i class="material-icons right">send</i>
-                    </button>
-                </div> 
-                <div class="col s12 m4">
-                    <button class="btn waves-effect waves-light col s12" asp-action="Index">
-                        Back
-                        <i class="material-icons right">send</i>
-                    </button>
-                </div> 
-                <div class="col s12 m4">
-                    <button class="btn waves-effect waves-light col s12" asp-action="Delete" asp-route-id="@Model.FiscalCode">
-                        Delete
-                        <i class="material-icons right">send</i>
-                    </button>
-                </div>  
+                </div>
+
+                <div class="row">
+
+                    <!-- Student.Name -->
+                    <div class="input-field col s12 m6">
+                        <input asp-for="Name" id="first_name" type="text" class="validate">
+                        <span class="red-text" asp-validation-for="Name"></span>
+                        <label asp-for="Name" class="active">First Name</label>
+                    </div>
+
+                    <!-- Student.Surname -->
+                    <div class="input-field col s12 m6">
+                        <input asp-for="Surname" id="last_name" type="text" class="validate">
+                        <span class="red-text" asp-validation-for="Surname"></span>
+                        <label asp-for="Surname" class="active">Last Name</label>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <!-- Student.Birthday -->
+                    <div class="input-field col s12 m6">
+                        <i class="material-icons prefix">today</i>
+                        <input asp-for="Birthday" type="date" class="datepicker">
+                        <span class="red-text" asp-validation-for="Birthday"></span>
+                        <label asp-for="Birthday" for="birthday" class="active">Birthday</label>
+                    </div>
+
+                    <!-- Student.Age -->
+                    <div class="input-field col s12 m6">
+                        <input asp-for="Age" id="age" type="text" class="validate">
+                        <span class="red-text" asp-validation-for="Age"></span>
+                        <label asp-for="Age" class="active">Age</label>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <!-- Student.Email -->
+                    <div class="input-field col s12 m6">
+                        <i class="material-icons prefix">email</i>
+                        <input asp-for="Email" id="email" class="validate">
+                        <span class="red-text" asp-validation-for="Email"></span>
+                        <label asp-for="Email" data-error="wrong" data-success="right">Email</label>
+                    </div>
+
+                    <!-- Student.FkClass -->
+                    <div class="input-field col s12 m6">
+                        <select asp-for="FkClass" asp-items="ViewBag.FkClass">
+                            <option value="" disabled selected>Choose your option</option>
+                        </select>
+                        <label asp-for="FkClass">Classe</label>
+                    </div>
+
+                </div>
+
+                <!-- Validation sector -->
+                <div class="row m4 offset-m4 red-text"
+                     asp-validation-summary="ModelOnly">
+                </div>
                 
-            </div>
+                <div class="row">
+                    <div class="col s12 m6">
+                        <button class="btn waves-effect waves-light col s12 green accent-4"  type="submit">
+                            Save
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                    <div class="col s12 m6">
+                        <button class="btn waves-effect waves-light col s12" type="reset">
+                            Reset Change
+                            <i class="material-icons right">loop</i>
+                        </button>
+                    </div>
+                </div>
 
-        </form>
+            </form>
 
+            <form method="get" class="col s12 m6">
+                <div class="form-action">
+                    <button class="btn waves-effect waves-light col s12 yellow darken-2" asp-action="Index">
+                        Back
+                        <i class="material-icons right">settings_backup_restore</i>
+                    </button>
+                </div>
+            </form>
+
+            <form method="get" class="col s12 m6">
+                <div class="form-action">
+                    <a href="#delete-student-@Model.ID" class="btn waves-effect waves-light col s12 red daken-1">
+                        Remove
+                        <i class="material-icons right">delete</i>
+                    </a>
+                </div>         
+            </form>
+
+            <!-- Modal Structure -->
+            @Html.Partial("Delete", Model)
+        
+        </div>
     </div>
 </div>
+
+
 
