@@ -1,0 +1,30 @@
+@model school_register.Model.Entities.Class
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Class</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FkBranchNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FkBranchNavigation.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FkRoomNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FkRoomNavigation.NumeroAula)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Name">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
