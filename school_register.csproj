@@ -4,10 +4,6 @@
     <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="wwwroot\images\learning (1).png" />
-    <Content Include="wwwroot\images\learning.png" />
-    <Content Include="wwwroot\images\student128.png" />
-    <Content Include="wwwroot\images\student256.png" />
     <Content Include="wwwroot\images\students\studentfemale256.png" />
     <Content Include="wwwroot\images\students\reading.png" />
     <Content Include="wwwroot\images\students\student128.png" />

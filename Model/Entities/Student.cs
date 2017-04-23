@@ -32,7 +32,6 @@ namespace school_register.Model.Entities
         public Gender Gender { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = false)]
         [Required(ErrorMessage = "La data di nascita è richiesta")]
         public DateTime Birthday { get; set; }
 
