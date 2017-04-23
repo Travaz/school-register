@@ -8,8 +8,11 @@
     <Content Include="wwwroot\images\learning.png" />
     <Content Include="wwwroot\images\student128.png" />
     <Content Include="wwwroot\images\student256.png" />
+    <Content Include="wwwroot\images\students\studentfemale256.png" />
+    <Content Include="wwwroot\images\students\reading.png" />
     <Content Include="wwwroot\images\students\student128.png" />
     <Content Include="wwwroot\images\students\student256.png" />
+    <Content Include="wwwroot\images\students\studentmale256.png" />
     <Content Include="wwwroot\js\student\student.js" />
   </ItemGroup>
   <ItemGroup>

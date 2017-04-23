@@ -15,8 +15,8 @@
     <div class="row">
 
         <div class="col s12 m4 l2">
-            <div class="card">
-                <a asp-action="Create" class="col s12 btn-block teal btn-large waves-effect waves-light red hoverable"><i class="material-icons">add</i></a>
+            <div class="card hoverable">
+                <a asp-action="Create" class="col s12 btn-block teal btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
             </div>
         </div>
 
@@ -24,24 +24,38 @@
         {
             <div class="col s12 m4 l2">
 
-                <div class="student-card">
-                    <div class="card teal darken-3">
+                <div class="student-card hoverable">
+                    <div class="card">
                         <div class="card-image">
-                            <img src="~/images/students/student256.png" />
+                            @if (student.Gender == Gender.Female)
+                            { 
+                                <img src="~/images/students/studentfemale256.png" />
+                            }
+                            else
+                            {
+                                <img src="~/images/students/studentmale256.png" />
+                            }
                         </div>
                         <ul class="card-buttons">
                             <li>
-                                <a asp-action="Edit" asp-route-id="@student.ID" class="btn-floating waves-effect waves-light teal hoverable"><i class="material-icons">mode_edit</i></a>
+                                <a asp-action="Edit" asp-route-id="@student.ID" class="btn-floating waves-effect waves-light green darken-2 hoverable"><i class="material-icons">mode_edit</i></a>
                             </li>
                             <li>
-                                <a asp-action="Details" asp-route-id="@student.ID" class="btn-floating waves-effect waves-light teal hoverable"><i class="material-icons">info_outline</i></a>
+                                <a asp-action="Details" asp-route-id="@student.ID" class="btn-floating waves-effect waves-light light-blue accent-2 hoverable"><i class="material-icons">info_outline</i></a>
                             </li>
                             <li>
-                                <a href="#delete-student-@student.ID" class="btn-floating waves-effect waves-light red daken-1 hoverable"><i class="material-icons right">delete</i></a>
+                                <a href="#delete-student-@student.ID" class="btn-floating waves-effect waves-light red accent-2 hoverable"><i class="material-icons right">delete</i></a>
                             </li>
                         </ul>
-                        <div class="card-content white">
-                            <h6 class="card-title teal-text">@student.Name @student.Surname</h6>
+                        <div class="card-content white teal-text">
+                            <div class="row">
+                                <div class="col s12 m10">
+                                    <h6 class="student-name">@student.Name @student.Surname</h6>
+                                </div>
+                                <div class="col s12 m2">
+                                    <h6 class="student-class">@student.FkClass</h6>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

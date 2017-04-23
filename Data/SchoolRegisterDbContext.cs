@@ -21,22 +21,18 @@ namespace school_register.Data
         {
             modelBuilder.Entity<Branch>(entity =>
             {
-                entity.HasKey(e => e.IdBranch)
+                entity.HasKey(e => e.Name)
                     .HasName("PK_branch");
 
                 entity.ToTable("branch");
 
-                entity.Property(e => e.IdBranch)
-                    .HasColumnName("idBranch")
-                    .HasColumnType("int(11)");
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnType("varchar(45)");
 
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .HasColumnType("text");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasColumnType("varchar(45)");
 
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
             });
@@ -58,7 +54,7 @@ namespace school_register.Data
 
                 entity.Property(e => e.FkBranch)
                     .HasColumnName("fk_branch")
-                    .HasColumnType("int(11)");
+                    .HasColumnType("varchar(45)");
 
                 entity.Property(e => e.FkRoom)
                     .HasColumnName("fk_room")
@@ -78,14 +74,11 @@ namespace school_register.Data
 
             modelBuilder.Entity<Room>(entity =>
             {
-                entity.HasKey(e => e.IdRoom)
+                entity.HasKey(e => e.NumeroAula)
                     .HasName("PK_room");
 
                 entity.ToTable("room");
 
-                entity.Property(e => e.IdRoom)
-                    .HasColumnName("idRoom")
-                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Floor).HasColumnType("int(11)");
 
@@ -93,7 +86,8 @@ namespace school_register.Data
                     .HasColumnName("LIM")
                     .HasColumnType("tinyint(1)");
 
-                entity.Property(e => e.NumeroAula).HasColumnType("int(11)");
+                entity.Property(e => e.NumeroAula)
+                    .HasColumnType("int(11)");
             });
 
             modelBuilder.Entity<Student>(entity =>
@@ -108,6 +102,9 @@ namespace school_register.Data
 
                 entity.Property(e => e.FiscalCode)
                     .HasColumnType("varchar(16)");
+
+                entity.Property(e => e.Gender)
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Age)
                     .HasColumnType("int(11)");

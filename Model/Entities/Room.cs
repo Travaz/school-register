@@ -10,10 +10,10 @@ namespace school_register.Model.Entities
             Class = new HashSet<Class>();
         }
 
-        public int IdRoom { get; set; }
+        public int NumeroAula { get; set; }
         public int Floor { get; set; }
         public bool Lim { get; set; }
-        public int NumeroAula { get; set; }
+
 
         public virtual ICollection<Class> Class { get; set; }
     }

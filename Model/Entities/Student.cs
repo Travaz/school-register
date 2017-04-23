@@ -5,6 +5,12 @@ using school_register.Services.Extension;
 
 namespace school_register.Model.Entities
 {
+    public enum Gender
+    {
+        Female,
+        Male
+    }
+
     public partial class Student
     {
         public int ID { get; set; }
@@ -23,8 +29,10 @@ namespace school_register.Model.Entities
         [Required(ErrorMessage = "L'età è richiesta")]
         public int Age { get; set; }
 
+        public Gender Gender { get; set; }
+
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = false)]
         [Required(ErrorMessage = "La data di nascita è richiesta")]
         public DateTime Birthday { get; set; }
 

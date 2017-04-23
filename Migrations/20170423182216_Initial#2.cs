@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace school_register.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Initial2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,30 +12,28 @@ namespace school_register.Migrations
                 name: "branch",
                 columns: table => new
                 {
-                    idBranch = table.Column<int>(type: "int(11)", nullable: false)
+                    Name = table.Column<string>(type: "varchar(45)", nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "varchar(45)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_branch", x => x.idBranch);
+                    table.PrimaryKey("PK_branch", x => x.Name);
                 });
 
             migrationBuilder.CreateTable(
                 name: "room",
                 columns: table => new
                 {
-                    idRoom = table.Column<int>(type: "int(11)", nullable: false)
+                    NumeroAula = table.Column<int>(type: "int(11)", nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Floor = table.Column<int>(type: "int(11)", nullable: false),
-                    LIM = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    NumeroAula = table.Column<int>(type: "int(11)", nullable: false)
+                    LIM = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_room", x => x.idRoom);
+                    table.PrimaryKey("PK_room", x => x.NumeroAula);
                 });
 
             migrationBuilder.CreateTable(
@@ -44,7 +42,7 @@ namespace school_register.Migrations
                 {
                     Name = table.Column<string>(type: "char(8)", nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
-                    fk_branch = table.Column<int>(type: "int(11)", nullable: true),
+                    fk_branch = table.Column<string>(type: "varchar(45)", nullable: true),
                     fk_room = table.Column<int>(type: "int(11)", nullable: true)
                 },
                 constraints: table =>
@@ -54,13 +52,13 @@ namespace school_register.Migrations
                         name: "fk_classes_branch",
                         column: x => x.fk_branch,
                         principalTable: "branch",
-                        principalColumn: "idBranch",
+                        principalColumn: "Name",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_class_room_fk_room",
                         column: x => x.fk_room,
                         principalTable: "room",
-                        principalColumn: "idRoom",
+                        principalColumn: "NumeroAula",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -75,6 +73,7 @@ namespace school_register.Migrations
                     Email = table.Column<string>(type: "varchar(80)", nullable: true),
                     FiscalCode = table.Column<string>(type: "varchar(16)", nullable: false),
                     fk_class = table.Column<string>(type: "char(8)", nullable: false),
+                    Gender = table.Column<int>(type: "int(11)", nullable: false),
                     Name = table.Column<string>(type: "varchar(80)", nullable: false),
                     Surname = table.Column<string>(type: "varchar(80)", nullable: false)
                 },

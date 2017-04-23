@@ -27,17 +27,32 @@
                 <!-- Student image -->
                 <div class="row">
                     <div class="col s12 m6 offset-m3 center">
-                        <img class="circle responsive-img" src="~/images/students/student256.png" />
+                        @if (Model.Gender == Gender.Female)
+                        {
+                            <img src="~/images/students/studentfemale256.png" />
+                        }
+                        else
+                        {
+                            <img src="~/images/students/studentmale256.png" />
+                        }
                     </div>
                 </div>
 
                 <div class="row">
                    
                     <!-- Student.FiscalCode -->
-                    <div class="input-field col s12">
+                    <div class="input-field col s12 m6">
                         <input asp-for="FiscalCode" class="validate" id="fiscal_code" type="text">
                         <span class="red-text" asp-validation-for="FiscalCode"></span>
                         <label asp-for="FiscalCode" class="active">Fiscal Code</label>
+                    </div>
+
+                    <!-- Student.Gender-->
+                    <div class="input-field col s12 m6">
+                        <select asp-for="Gender" asp-items="@Html.GetEnumSelectList(typeof(Gender))">
+                            <option value="" disabled selected>Choose your option</option>
+                        </select>
+                        <label asp-for="Gender">Gender</label>
                     </div>
 
                 </div>
