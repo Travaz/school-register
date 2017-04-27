@@ -22,9 +22,10 @@
         </div>
         <div class="nav-content teal center-align">
             <ul class="tabs tabs-transparent">
-                <li class="tab"><a class="active" href="#students">Students</a></li>
-                <li class="tab"><a href="#classes">Classes</a></li>
-                <li class="tab"><a href="#specializations">Specializations</a></li>
+                <li class="tab"><a class="active" asp-controller="Student" asp-action="Index">Students</a></li>
+                <li class="tab"><a asp-controller="Class" asp-action="Index">Classes</a></li>
+                <li class="tab"><a asp-controller="Branch" asp-action="Index">Branches</a></li>
+                <li class="tab"><a asp-controller="Room" asp-action="Index">Rooms</a></li>
             </ul>
         </div>
     </nav>
