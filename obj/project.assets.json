@@ -11571,6 +11571,9 @@
       "originalTargetFrameworks": [
         "netcoreapp1.1"
       ],
+      "files": {
+        "lib/netcoreapp1.1/school_register.dll": "C:\\Users\\luca-dani\\Source\\asp-net-projects\\school-register\\bin\\placeholder\\netcoreapp1.1\\school_register.dll"
+      },
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {}
@@ -11580,7 +11583,7 @@
     "frameworks": {
       "netcoreapp1.1": {
         "dependencies": {
-          "Pomelo.EntityFrameworkCore.MySql": {
+          "Microsoft.NETCore.App": {
             "target": "Package",
             "version": "1.1.1"
           },
@@ -11588,11 +11591,23 @@
             "target": "Package",
             "version": "1.1.1"
           },
-          "Microsoft.EntityFrameworkCore": {
+          "Microsoft.AspNetCore.Mvc": {
+            "target": "Package",
+            "version": "1.1.2"
+          },
+          "Microsoft.AspNetCore.StaticFiles": {
             "target": "Package",
             "version": "1.1.1"
           },
-          "Microsoft.Extensions.Logging.Debug": {
+          "Microsoft.EntityFrameworkCore.Design": {
+            "target": "Package",
+            "version": "1.1.1"
+          },
+          "Microsoft.EntityFrameworkCore.SqlServer": {
+            "target": "Package",
+            "version": "1.1.1"
+          },
+          "Microsoft.EntityFrameworkCore.SqlServer.Design": {
             "target": "Package",
             "version": "1.1.1"
           },
@@ -11600,44 +11615,31 @@
             "target": "Package",
             "version": "1.1.0"
           },
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
-            "target": "Package",
-            "version": "1.1.0"
-          },
-          "Microsoft.EntityFrameworkCore.Design": {
+          "Microsoft.Extensions.Logging.Debug": {
             "target": "Package",
             "version": "1.1.1"
-          },
-          "Microsoft.NETCore.App": {
-            "target": "Package",
-            "version": "1.1.1",
-            "autoReferenced": true
           },
           "Microsoft.VisualStudio.Web.BrowserLink": {
             "target": "Package",
             "version": "1.1.0"
           },
-          "Microsoft.EntityFrameworkCore.SqlServer": {
+          "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "1.1.1"
+          },
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+            "target": "Package",
+            "version": "1.1.0"
           },
           "Microsoft.VisualStudio.Web.CodeGeneration.Tools": {
             "target": "Package",
             "version": "1.0.0"
           },
-          "Microsoft.EntityFrameworkCore.SqlServer.Design": {
+          "Pomelo.EntityFrameworkCore.MySql": {
             "target": "Package",
             "version": "1.1.1"
-          },
-          "Microsoft.AspNetCore.Mvc": {
-            "target": "Package",
-            "version": "1.1.2"
           },
           "Pomelo.EntityFrameworkCore.MySql.Design": {
-            "target": "Package",
-            "version": "1.1.1"
-          },
-          "Microsoft.AspNetCore.StaticFiles": {
             "target": "Package",
             "version": "1.1.1"
           }
