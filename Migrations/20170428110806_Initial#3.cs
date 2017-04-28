@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace school_register.Migrations
 {
-    public partial class Initial2 : Migration
+    public partial class Initial3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,53 +12,56 @@ namespace school_register.Migrations
                 name: "branch",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: "varchar(45)", nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Description = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "varchar(45)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_branch", x => x.Name);
+                    table.PrimaryKey("PK_branch", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
                 name: "room",
                 columns: table => new
                 {
-                    NumeroAula = table.Column<int>(type: "int(11)", nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Floor = table.Column<int>(type: "int(11)", nullable: false),
-                    LIM = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    LIM = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    NumeroAula = table.Column<int>(type: "int(11)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_room", x => x.NumeroAula);
+                    table.PrimaryKey("PK_room", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
                 name: "class",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: "char(8)", nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
-                    fk_branch = table.Column<string>(type: "varchar(45)", nullable: true),
-                    fk_room = table.Column<int>(type: "int(11)", nullable: true)
+                    fk_branch = table.Column<int>(type: "int(11)", nullable: true),
+                    fk_room = table.Column<int>(type: "int(11)", nullable: true),
+                    Name = table.Column<string>(type: "char(8)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_class", x => x.Name);
+                    table.PrimaryKey("PK_class", x => x.ID);
                     table.ForeignKey(
                         name: "fk_classes_branch",
                         column: x => x.fk_branch,
                         principalTable: "branch",
-                        principalColumn: "Name",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_class_room_fk_room",
+                        name: "fk_classes_rooms",
                         column: x => x.fk_room,
                         principalTable: "room",
-                        principalColumn: "NumeroAula",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -72,7 +75,7 @@ namespace school_register.Migrations
                     Birthday = table.Column<DateTime>(type: "datetime", nullable: false),
                     Email = table.Column<string>(type: "varchar(80)", nullable: true),
                     FiscalCode = table.Column<string>(type: "varchar(16)", nullable: false),
-                    fk_class = table.Column<string>(type: "char(8)", nullable: false),
+                    fk_class = table.Column<int>(type: "int(11)", nullable: false),
                     Gender = table.Column<int>(type: "int(11)", nullable: false),
                     Name = table.Column<string>(type: "varchar(80)", nullable: false),
                     Surname = table.Column<string>(type: "varchar(80)", nullable: false)
@@ -84,7 +87,7 @@ namespace school_register.Migrations
                         name: "fk_student_class",
                         column: x => x.fk_class,
                         principalTable: "class",
-                        principalColumn: "Name",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 

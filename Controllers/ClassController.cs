@@ -29,9 +29,9 @@ namespace school_register.Controllers
         }
 
         // GET: Class/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int? id)
         {
-            if (id == string.Empty)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -39,7 +39,7 @@ namespace school_register.Controllers
             var _class = await _context.Class
                 .Include(c => c.FkBranchNavigation)
                 .Include(c => c.FkRoomNavigation)
-                .SingleOrDefaultAsync(m => m.Name == id);
+                .SingleOrDefaultAsync(m => m.ID == id);
             if (_class == null)
             {
                 return NotFound();
@@ -51,8 +51,8 @@ namespace school_register.Controllers
         // GET: Class/Create
         public IActionResult Create()
         {
-            ViewData["FkBranch"] = new SelectList(_context.Branch, "Name", "Name");
-            ViewData["FkRoom"] = new SelectList(_context.Room, "NumeroAula", "NumeroAula");
+            ViewData["FkBranch"] = new SelectList(_context.Branch, "ID", "Name");
+            ViewData["FkRoom"] = new SelectList(_context.Room, "ID", "NumeroAula");
             return View();
         }
 
@@ -69,26 +69,26 @@ namespace school_register.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["FkBranch"] = new SelectList(_context.Branch, "Name", "Name", _class.FkBranch);
-            ViewData["FkRoom"] = new SelectList(_context.Room, "NumeroAula", "NumeroAula", _class.FkRoom);
+            ViewData["FkBranch"] = new SelectList(_context.Branch, "ID", "Name", _class.FkBranch);
+            ViewData["FkRoom"] = new SelectList(_context.Room, "ID", "NumeroAula", _class.FkRoom);
             return View(_class);
         }
 
         // GET: Class/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            if (id == string.Empty)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var _class = await _context.Class.SingleOrDefaultAsync(m => m.Name == id);
+            var _class = await _context.Class.SingleOrDefaultAsync(m => m.ID == id);
             if (_class == null)
             {
                 return NotFound();
             }
-            ViewData["FkBranch"] = new SelectList(_context.Branch, "Name", "Name", _class.FkBranch);
-            ViewData["FkRoom"] = new SelectList(_context.Room, "NumeroAula", "NumeroAula", _class.FkRoom);
+            ViewData["FkBranch"] = new SelectList(_context.Branch, "ID", "Name", _class.FkBranch);
+            ViewData["FkRoom"] = new SelectList(_context.Room, "ID", "NumeroAula", _class.FkRoom);
             return View(_class);
         }
 
@@ -97,9 +97,9 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Name,FkBranch,FkRoom")] Class _class)
+        public async Task<IActionResult> Edit(int? id, [Bind("Name,FkBranch,FkRoom")] Class _class)
         {
-            if (id != _class.Name)
+            if (id != _class.ID)
             {
                 return NotFound();
             }
@@ -113,7 +113,8 @@ namespace school_register.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClassExists(_class.Name))
+                    if (!ClassExists(_class.ID
+                    ))
                     {
                         return NotFound();
                     }
@@ -124,15 +125,15 @@ namespace school_register.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["FkBranch"] = new SelectList(_context.Branch, "Name", "Name", _class.FkBranch);
-            ViewData["FkRoom"] = new SelectList(_context.Room, "NumeroAula", "NumeroAula", _class.FkRoom);
+            ViewData["FkBranch"] = new SelectList(_context.Branch, "ID", "Name", _class.FkBranch);
+            ViewData["FkRoom"] = new SelectList(_context.Room, "ID", "NumeroAula", _class.FkRoom);
             return View(_class);
         }
 
         // GET: Class/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            if (id == string.Empty)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -140,7 +141,7 @@ namespace school_register.Controllers
             var _class = await _context.Class
                 .Include(c => c.FkBranchNavigation)
                 .Include(c => c.FkRoomNavigation)
-                .SingleOrDefaultAsync(m => m.Name == id);
+                .SingleOrDefaultAsync(m => m.ID == id);
             if (_class == null)
             {
                 return NotFound();
@@ -152,17 +153,17 @@ namespace school_register.Controllers
         // POST: Class/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            var _class = await _context.Class.SingleOrDefaultAsync(m => m.Name == id);
+            var _class = await _context.Class.SingleOrDefaultAsync(m => m.ID == id);
             _context.Class.Remove(_class);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        private bool ClassExists(string id)
+        private bool ClassExists(int? id)
         {
-            return _context.Class.Any(e => e.Name == id);
+            return _context.Class.Any(e => e.ID == id);
         }
     }
 }

@@ -24,7 +24,7 @@
         {
             <div class="col s12 m4 l2">
 
-                <div class="student-card hoverable">
+                <div class="model-card hoverable">
                     <div class="card">
                         <div class="card-image">
                             @if (student.Gender == Gender.Female)
@@ -53,7 +53,7 @@
                                     <h6 class="student-name">@student.Name @student.Surname</h6>
                                 </div>
                                 <div class="col s12 m2">
-                                    <h6 class="student-class">@student.FkClass</h6>
+                                    <h6 class="student-class">@student.FkClassNavigation.Name</h6>
                                 </div>
                             </div>
                         </div>
@@ -71,6 +71,3 @@
     </div>
 
 </div>
-
-<div id="classes" class="col s12">Classes</div>
-<div id="specializations" class="col s12">Specializations</div>

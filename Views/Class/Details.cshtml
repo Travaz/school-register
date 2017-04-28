@@ -1,30 +1,81 @@
-@model school_register.Model.Entities.Class
+@model Class
 
 @{
-    ViewData["Title"] = "Details";
+    ViewBag.Title = $"Details - {Model.Name}";
 }
 
-<h2>Details</h2>
+<!-- Section that renders after jQuery plugin-->
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/student/student.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
-<div>
-    <h4>Class</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FkBranchNavigation)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FkBranchNavigation.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FkRoomNavigation)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FkRoomNavigation.NumeroAula)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Name">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="row">
+    <div class="container">
+        <div class="section">
+
+            <!-- Class.ID -->
+            <input type="hidden" asp-for="ID" />
+
+            <!-- Class image -->
+            <div class="row">
+                <div class="col s12 m6 offset-m3 center">
+                    <img class="circle responsive-img" src="~/images/classes/classes.png" />
+                </div>
+            </div>
+
+
+            <div class="row model-details">
+
+                <ul class="collapsible popout col s12" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">person_pin</i>@Html.DisplayNameFor(class => class.Name)</div>
+                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.Name)</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(class => class.FkRoom)</div>
+                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.FkRoom)</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(class => class.FkBranch)</div>
+                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.FkBranch)</span></div>
+                    </li>
+                </ul>
+
+                <form method="get" class="col s12 m4">
+                    <div class="form-action">
+                        <button class="btn waves-effect waves-light col s12 teal" asp-action="Edit" asp-route-id="@Model.ID">
+                            Edit
+                            <i class="material-icons right">mode_edit</i>
+                        </button>
+                    </div>
+                </form>
+
+                <form method="get" class="col s12 m4">
+                    <div class="form-action">
+                        <a href="#delete-student-@Model.ID" class="btn waves-effect waves-light col s12 red daken-1">
+                            Remove
+                            <i class="material-icons right">delete</i>
+                        </a>
+                    </div>
+                </form> 
+
+                <form method="get" class="col s12 m4">
+                    <div class="form-action">
+                        <button class="btn modal-close waves-effect waves-light col s12 yellow darken-2" asp-action="Index">
+                            Back
+                            <i class="material-icons right">settings_backup_restore</i>
+                        </button>
+                    </div>
+                </form>
+               
+            </div>   
+            
+            <!-- Modal Structure -->
+            @Html.Partial("Delete", Model)
+
+        </div>
+    </div>
 </div>

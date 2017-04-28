@@ -34,7 +34,7 @@ namespace school_register.Controllers
             }
 
             var room = await _context.Room
-                .SingleOrDefaultAsync(m => m.NumeroAula == id);
+                .SingleOrDefaultAsync(m => m.ID == id);
             if (room == null)
             {
                 return NotFound();
@@ -73,7 +73,7 @@ namespace school_register.Controllers
                 return NotFound();
             }
 
-            var room = await _context.Room.SingleOrDefaultAsync(m => m.NumeroAula == id);
+            var room = await _context.Room.SingleOrDefaultAsync(m => m.ID == id);
             if (room == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace school_register.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("NumeroAula,Floor,Lim")] Room room)
         {
-            if (id != room.NumeroAula)
+            if (id != room.ID)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace school_register.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RoomExists(room.NumeroAula))
+                    if (!RoomExists(room.ID))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace school_register.Controllers
             }
 
             var room = await _context.Room
-                .SingleOrDefaultAsync(m => m.NumeroAula == id);
+                .SingleOrDefaultAsync(m => m.ID == id);
             if (room == null)
             {
                 return NotFound();
@@ -139,7 +139,7 @@ namespace school_register.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var room = await _context.Room.SingleOrDefaultAsync(m => m.NumeroAula == id);
+            var room = await _context.Room.SingleOrDefaultAsync(m => m.ID == id);
             _context.Room.Remove(room);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -147,7 +147,7 @@ namespace school_register.Controllers
 
         private bool RoomExists(int id)
         {
-            return _context.Room.Any(e => e.NumeroAula == id);
+            return _context.Room.Any(e => e.ID == id);
         }
     }
 }

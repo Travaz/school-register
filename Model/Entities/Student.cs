@@ -36,7 +36,7 @@ namespace school_register.Model.Entities
         public DateTime Birthday { get; set; }
 
         [Required(ErrorMessage = "La classe è richiesta")]
-        public string FkClass { get; set; }
+        public int? FkClass { get; set; }
 
         public string Email { get; set; }
 

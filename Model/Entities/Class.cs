@@ -10,8 +10,9 @@ namespace school_register.Model.Entities
             Student = new HashSet<Student>();
         }
 
+        public int ID { get; set;}
         public string Name { get; set; }
-        public string FkBranch { get; set; }
+        public int? FkBranch { get; set; }
         public int? FkRoom { get; set; }
 
         public virtual ICollection<Student> Student { get; set; }
