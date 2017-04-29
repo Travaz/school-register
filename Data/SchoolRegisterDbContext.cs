@@ -63,7 +63,7 @@ namespace school_register.Data
                     .HasColumnType("int(11)");
 
                 entity.HasOne(d => d.FkBranchNavigation)
-                    .WithMany(p => p.Class)
+                    .WithMany(p => p.Classes)
                     .HasForeignKey(d => d.FkBranch)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_classes_branch");
@@ -132,7 +132,7 @@ namespace school_register.Data
                     .HasColumnType("varchar(80)");
 
                 entity.HasOne(d => d.FkClassNavigation)
-                    .WithMany(p => p.Student)
+                    .WithMany(p => p.Students)
                     .HasForeignKey(d => d.FkClass)
                     .HasConstraintName("fk_student_class");
             });

@@ -18,8 +18,24 @@
     <!-- Nav bar -->
     <nav class="nav-extended">
         <div class="nav-wrapper teal">
-            <span class="brand-logo center">School Register</span>
+            <a class="brand-logo center">School Register</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a class="active" asp-controller="Student" asp-action="Index">Students</a></li>
+                <li><a asp-controller="Class" asp-action="Index">Classes</a></li>
+                <li><a asp-controller="Branch" asp-action="Index">Branches</a></li>
+                <li><a asp-controller="Room" asp-action="Index">Rooms</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li><a class="active" asp-controller="Student" asp-action="Index">Students</a></li>
+                <li><a asp-controller="Class" asp-action="Index">Classes</a></li>
+                <li><a asp-controller="Branch" asp-action="Index">Branches</a></li>
+                <li><a asp-controller="Room" asp-action="Index">Rooms</a></li>
+            </ul>       
         </div>
+
+        <!-- Tab navbar (bug) -->
+        <!--
         <div class="nav-content teal center-align">
             <ul class="tabs tabs-transparent">
                 <li class="tab"><a class="active" asp-controller="Student" asp-action="Index">Students</a></li>
@@ -28,7 +44,9 @@
                 <li class="tab"><a asp-controller="Room" asp-action="Index">Rooms</a></li>
             </ul>
         </div>
+        -->
     </nav>
+
     <!-- Pages injections -->
     <div>
         @RenderBody()
@@ -46,8 +64,7 @@
 
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/materialize/dist/js/materialize.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <script src="~/js/site.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

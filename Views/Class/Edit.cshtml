@@ -4,14 +4,6 @@
     ViewBag.Title = $"Edit - {Model.Name}";
 }
 
-<!-- Section that renders after jQuery plugin-->
-@section Scripts {
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/js/student/student.js"></script>
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-
 <div class="row">
 
     <div class="container">
@@ -35,7 +27,7 @@
                    
                     <!-- Class.Name -->
                     <div class="input-field col s12">
-                        <input asp-for="Name" id="first_name" type="text" class="validate">
+                        <input asp-for="Name" id="first_name" type="text" class="validate" data-length="4">
                         <span class="red-text" asp-validation-for="Name"></span>
                         <label asp-for="Name" class="active">Class Name</label>
                     </div>
@@ -108,3 +100,9 @@
         </div>
     </div>
 </div>
+
+<!-- Section that renders after jQuery plugin-->
+@section Scripts {
+    <script src="~/js/site.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

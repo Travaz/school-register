@@ -4,14 +4,6 @@
     ViewBag.Title = "Create Student";
 }
 
-<!-- Section that renders after jQuery plugin-->
-@section Scripts {
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/js/student/student.js"></script>
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-
 <div class="row">
 
     <div class="container">
@@ -142,6 +134,12 @@
 
     </div>
 </div>
+
+<!-- Section that renders after jQuery plugin-->
+@section Scripts {
+    <script src="~/js/site.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
 
 

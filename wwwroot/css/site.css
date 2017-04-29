@@ -1,6 +1,6 @@
 ﻿/* Write your CSS code */
 
-/* Student */
+/* Models */
 
     /* Index */
 
@@ -16,6 +16,6 @@
     /* Details */
 
         /* Accordion list*/
-        .model-details ul.collapsible li{
+        .model-details ul.collapsible li {
             margin: 0;
         }

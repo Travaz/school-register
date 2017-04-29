@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace school_register.Services.Extension
 {
-    public class FiscalCodeValidation : ValidationAttribute
+    public class ClassNameValidation : ValidationAttribute
     {
-        private Regex fiscalCode = new Regex(@"^[A-Za-z]{6}[0-9]{2}[A-Za-z]{1}[0-9]{2}[A-Za-z]{1}[0-9]{3}[A-Za-z]{1}$");
+        private Regex fiscalCode = new Regex(@"^([0-9]{1})([A-Z]{1}|[A-Z]{2}|[A-Z]{3})$");
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             if (fiscalCode.IsMatch(value.ToString()))
             {
                 return ValidationResult.Success;
             }
-            return new ValidationResult("The fiscal code is wrong (Es: 'TRVDNL98L30H330A')");
+            return new ValidationResult("The class name is wrong (Es: '5BI')");
         }
 
     }

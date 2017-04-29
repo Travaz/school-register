@@ -4,14 +4,6 @@
     ViewBag.Title = $"Details - {Model.Name} {Model.Surname}";
 }
 
-<!-- Section that renders after jQuery plugin-->
-@section Scripts {
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/js/student/student.js"></script>
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-
 <div class="row">
     <div class="container">
         <div class="section">
@@ -22,14 +14,7 @@
             <!-- Student image -->
             <div class="row">
                 <div class="col s12 m6 offset-m3 center">
-                    @if (Model.Gender == Gender.Female)
-                    {
-                    <img src="~/images/students/studentfemale256.png" />
-                    }
-                    else
-                    {
-                    <img src="~/images/students/studentmale256.png" />
-                    }
+                    @Html.Partial("ProfilePicture", Model)
                     <h4 class="">@Model.Name @Model.Surname</h4>
                 </div>
             </div>
@@ -107,3 +92,9 @@
         </div>
     </div>
 </div>
+
+<!-- Section that renders after jQuery plugin-->
+@section Scripts {
+    <script src="~/js/site.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

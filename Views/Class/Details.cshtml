@@ -4,14 +4,6 @@
     ViewBag.Title = $"Details - {Model.Name}";
 }
 
-<!-- Section that renders after jQuery plugin-->
-@section Scripts {
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/js/student/student.js"></script>
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-
 <div class="row">
     <div class="container">
         <div class="section">
@@ -26,21 +18,41 @@
                 </div>
             </div>
 
-
             <div class="row model-details">
 
                 <ul class="collapsible popout col s12" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">person_pin</i>@Html.DisplayNameFor(class => class.Name)</div>
+                        <div class="collapsible-header"><i class="material-icons">person_pin</i>@Html.DisplayNameFor(classes => classes.Name)</div>
                         <div class="collapsible-body"><span>@Html.DisplayFor(model => model.Name)</span></div>
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(class => class.FkRoom)</div>
-                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.FkRoom)</span></div>
+                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(classes => classes.FkRoom)</div>
+                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.FkRoomNavigation.NumeroAula)</span></div>
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(class => class.FkBranch)</div>
-                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.FkBranch)</span></div>
+                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(classes => classes.FkBranch)</div>
+                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.FkBranchNavigation.Name)</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(classes => classes.Students)</div>
+                        <div class="collapsible-body">
+                            
+                            <div class="collection">
+                                @foreach (var student in Model.Students)
+                                {
+
+                                    <a asp-controller="Student" asp-action="Details" asp-route-id="@student.ID" class="collection-item avatar">
+                                        <img src="~/images/students/student256.png" alt="" class="circle">
+                                        <span class="title">@student.Name @student.Surname</span>
+                                        <p>
+                                            @student.Birthday.Date <br>
+                                            @student.Gender
+                                        </p>
+                                    </a>
+                                }
+                            </div>
+
+                        </div>
                     </li>
                 </ul>
 
@@ -79,3 +91,9 @@
         </div>
     </div>
 </div>
+
+<!-- Section that renders after jQuery plugin-->
+@section Scripts {
+    <script src="~/js/site.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

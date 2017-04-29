@@ -16,7 +16,7 @@ namespace school_register.Controllers
 
         public ClassController(SchoolRegisterDbContext context)
         {
-            _context = context;    
+            _context = context;
         }
 
         // GET: Class
@@ -39,6 +39,7 @@ namespace school_register.Controllers
             var _class = await _context.Class
                 .Include(c => c.FkBranchNavigation)
                 .Include(c => c.FkRoomNavigation)
+                .Include(c => c.Students)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (_class == null)
             {
@@ -97,7 +98,7 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id, [Bind("Name,FkBranch,FkRoom")] Class _class)
+        public async Task<IActionResult> Edit(int? id, [Bind("ID, Name,FkBranch,FkRoom")] Class _class)
         {
             if (id != _class.ID)
             {

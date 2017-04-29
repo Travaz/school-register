@@ -7,7 +7,7 @@ namespace school_register.Model.Entities
     {
         public Branch()
         {
-            Class = new HashSet<Class>();
+            Classes = new HashSet<Class>();
         }
 
         public int ID { get; set; }
@@ -15,6 +15,6 @@ namespace school_register.Model.Entities
         public string Description { get; set; }
         public DateTime StartDate { get; set; }
 
-        public virtual ICollection<Class> Class { get; set; }
+        public virtual ICollection<Class> Classes { get; set; }
     }
 }
