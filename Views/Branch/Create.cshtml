@@ -1,0 +1,95 @@
+@model Branch
+
+@{
+    ViewBag.Title = "Create Branch";
+}
+
+<div class="row">
+
+    <div class="container">
+
+        <div class="section">
+
+            <!-- Branch personal data -->
+            <form asp-action="Create" method="post" class="col s12">
+
+                <!-- Branch.ID -->
+                <input type="hidden" asp-for="ID" />
+
+                <!-- Branch image -->
+                <div class="row">
+                    <div class="col s12 m6 offset-m3 center">
+                        <img src="~/images/branches/default.png" />
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <!-- Branch.Name -->
+                    <div class="input-field col s12 m6">
+                        <input asp-for="Name" type="text" class="validate">
+                        <span class="red-text" asp-validation-for="Name"></span>
+                        <label asp-for="Name" class="active">Branch Name</label>
+                    </div>
+
+                    <!-- Branch.StartDate -->
+                    <div class="input-field col s12 m6">
+                        <input asp-for="StartDate" type="date" class="validate">
+                        <span class="red-text" asp-validation-for="StartDate"></span>
+                        <label asp-for="StartDate" class="active">Start Date</label>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <!-- Branch.Description -->
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">mode_edit</i>
+                        <textarea asp-for="Description" class="materialize-textarea"></textarea>
+                        <span class="red-text" asp-validation-for="Description"></span>
+                        <label asp-for="Description">Description</label>
+                    </div>
+
+                </div>
+
+                <!-- Validation sector -->
+                <div class="row m4 offset-m4 red-text"
+                     asp-validation-summary="ModelOnly">
+                </div>
+
+                <div class="row">
+                    <div class="col s12 m6">
+                        <button class="btn waves-effect waves-light col s12 green accent-3" type="submit">
+                            Create
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                    <div class="col s12 m6">
+                        <button class="btn waves-effect waves-light col s12" type="reset">
+                            Reset Change
+                            <i class="material-icons right">loop</i>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+            <form method="get" class="col s12">
+                <div class="form-action">
+                    <button class="btn waves-effect waves-light col s12 yellow darken-2" asp-action="Index">
+                        Back
+                        <i class="material-icons right">settings_backup_restore</i>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- Section that renders after jQuery plugin-->
+@section Scripts {
+    <script src="~/js/site.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

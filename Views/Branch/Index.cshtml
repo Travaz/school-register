@@ -1,0 +1,60 @@
+@model IEnumerable<Branch>
+
+@{
+    ViewBag.Title = "Branches";
+}
+
+<!-- Tables with branches -->
+<div id="branches" class="col s12">
+
+    <div class="row">
+
+        <div class="col s12 m4 l2">
+            <div class="card hoverable">
+                <a asp-action="Create" class="col s12 btn-block teal btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+            </div>
+        </div>
+
+        @foreach (var branch in Model)
+        {
+            <div class="col s12 m4 l2">
+
+                <div class="model-card hoverable">
+                    <div class="card">
+                        <div class="card-image">
+                            <img class="circle responsive-img" src="~/images/branches/@branch.Icon" />
+                        </div>
+                        <ul class="card-buttons">
+                            <li>
+                                <a asp-action="Edit" asp-route-id="@branch.ID" class="btn-floating waves-effect waves-light green darken-2 hoverable"><i class="material-icons">mode_edit</i></a>
+                            </li>
+                            <li>
+                                <a asp-action="Details" asp-route-id="@branch.ID" class="btn-floating waves-effect waves-light light-blue accent-2 hoverable"><i class="material-icons">info_outline</i></a>
+                            </li>
+                            <li>
+                                <a href="#delete-branch-@branch.ID" class="btn-floating waves-effect waves-light red accent-2 hoverable"><i class="material-icons right">delete</i></a>
+                            </li>
+                        </ul>
+                        <div class="card-content white teal-text">
+                            <div class="row">
+                                <div class="col s12 m12">
+                                    <h6 class="branch-name">@branch.Name</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Structure -->
+                @Html.Partial("Delete", branch)
+
+            </div>
+        }
+
+    </div>
+</div>
+
+<!-- Section that renders after jQuery plugin-->
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}

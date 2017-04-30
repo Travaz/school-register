@@ -21,7 +21,7 @@ namespace school_register.Data
         {
             modelBuilder.Entity<Branch>(entity =>
             {
-                entity.HasKey(e => e.Name)
+                entity.HasKey(e => e.ID)
                     .HasName("PK_branch");
 
                 entity.ToTable("branch");
@@ -34,12 +34,16 @@ namespace school_register.Data
                     .IsRequired()
                     .HasColumnType("text");
 
-                entity.Property(e => e.StartDate).HasColumnType("datetime");
+                entity.Property(e => e.StartDate)
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Icon)
+                    .HasColumnType("text");
             });
 
             modelBuilder.Entity<Class>(entity =>
             {
-                entity.HasKey(e => e.Name)
+                entity.HasKey(e => e.ID)
                     .HasName("PK_class");
 
                 entity.ToTable("class");
@@ -50,11 +54,12 @@ namespace school_register.Data
                 entity.HasIndex(e => e.FkRoom)
                     .HasName("fk_classes_rooms1_idx");
 
-                entity.Property(e => e.Name).HasColumnType("char(8)");
+                entity.Property(e => e.Name)
+                    .HasColumnType("char(8)");
 
                 entity.Property(e => e.FkBranch)
                     .HasColumnName("fk_branch")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.FkRoom)
                     .HasColumnName("fk_room")
@@ -67,20 +72,22 @@ namespace school_register.Data
                     .HasConstraintName("fk_classes_branch");
 
                 entity.HasOne(d => d.FkRoomNavigation)
-                    .WithMany(p => p.Class)
+                    .WithMany(p => p.Classes)
                     .HasForeignKey(d => d.FkRoom)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("fk_classes_rooms");
             });
 
             modelBuilder.Entity<Room>(entity =>
             {
-                entity.HasKey(e => e.NumeroAula)
+                entity.HasKey(e => e.ID)
                     .HasName("PK_room");
 
                 entity.ToTable("room");
 
 
-                entity.Property(e => e.Floor).HasColumnType("int(11)");
+                entity.Property(e => e.Floor)
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Lim)
                     .HasColumnName("LIM")
@@ -118,7 +125,7 @@ namespace school_register.Data
                 entity.Property(e => e.FkClass)
                     .IsRequired()
                     .HasColumnName("fk_class")
-                    .HasColumnType("char(8)");
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -129,7 +136,7 @@ namespace school_register.Data
                     .HasColumnType("varchar(80)");
 
                 entity.HasOne(d => d.FkClassNavigation)
-                    .WithMany(p => p.Student)
+                    .WithMany(p => p.Students)
                     .HasForeignKey(d => d.FkClass)
                     .HasConstraintName("fk_student_class");
             });

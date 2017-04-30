@@ -48,7 +48,7 @@ namespace school_register.Controllers
         // GET: Student/Create
         public IActionResult Create()
         {
-            ViewData["FkClass"] = new SelectList(_context.Class, "Name", "Name");
+            ViewData["FkClass"] = new SelectList(_context.Class, "ID", "Name");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FiscalCode,Gender,Name,Surname,Birthday,Age,,FkClass,Email")] Student student)
+        public async Task<IActionResult> Create([Bind("FiscalCode,Gender,Name,Surname,Birthday,Age,FkClass,Email")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace school_register.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["FkClass"] = new SelectList(_context.Class, "Name", "Name", student.FkClass);
+            ViewData["FkClass"] = new SelectList(_context.Class, "ID", "Name", student.FkClass);
             return View(student);
         }
 
@@ -82,7 +82,7 @@ namespace school_register.Controllers
             {
                 return NotFound();
             }
-            ViewData["FkClass"] = new SelectList(_context.Class, "Name", "Name", student.FkClass);
+            ViewData["FkClass"] = new SelectList(_context.Class, "ID", "Name", student.FkClass);
             return View(student);
         }
 
@@ -118,7 +118,7 @@ namespace school_register.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["FkClass"] = new SelectList(_context.Class, "Name", "Name", student.FkClass);
+            ViewData["FkClass"] = new SelectList(_context.Class, "ID", "Name", student.FkClass);
             return View(student);
         }
 

@@ -1,0 +1,99 @@
+@model Class
+
+@{
+    ViewBag.Title = $"Details - {Model.Name}";
+}
+
+<div class="row">
+    <div class="container">
+        <div class="section">
+
+            <!-- Class.ID -->
+            <input type="hidden" asp-for="ID" />
+
+            <!-- Class image -->
+            <div class="row">
+                <div class="col s12 m6 offset-m3 center">
+                    <img class="circle responsive-img" src="~/images/classes/classes.png" />
+                </div>
+            </div>
+
+            <div class="row model-details">
+
+                <ul class="collapsible popout col s12" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">person_pin</i>@Html.DisplayNameFor(classes => classes.Name)</div>
+                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.Name)</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(classes => classes.FkRoom)</div>
+                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.FkRoomNavigation.NumeroAula)</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(classes => classes.FkBranch)</div>
+                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.FkBranchNavigation.Name)</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(classes => classes.Students)</div>
+                        <div class="collapsible-body">
+                            
+                            <div class="collection">
+                                @foreach (var student in Model.Students)
+                                {
+
+                                    <a asp-controller="Student" asp-action="Details" asp-route-id="@student.ID" class="collection-item avatar">
+                                        <img src="~/images/students/student256.png" alt="" class="circle">
+                                        <span class="title">@student.Name @student.Surname</span>
+                                        <p>
+                                            @student.Birthday.Date <br>
+                                            @student.Gender
+                                        </p>
+                                    </a>
+                                }
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+
+                <form method="get" class="col s12 m4">
+                    <div class="form-action">
+                        <button class="btn waves-effect waves-light col s12 teal" asp-action="Edit" asp-route-id="@Model.ID">
+                            Edit
+                            <i class="material-icons right">mode_edit</i>
+                        </button>
+                    </div>
+                </form>
+
+                <form method="get" class="col s12 m4">
+                    <div class="form-action">
+                        <a href="#delete-class-@Model.ID" class="btn waves-effect waves-light col s12 red daken-1">
+                            Remove
+                            <i class="material-icons right">delete</i>
+                        </a>
+                    </div>
+                </form> 
+
+                <form method="get" class="col s12 m4">
+                    <div class="form-action">
+                        <button class="btn modal-close waves-effect waves-light col s12 yellow darken-2" asp-action="Index">
+                            Back
+                            <i class="material-icons right">settings_backup_restore</i>
+                        </button>
+                    </div>
+                </form>
+               
+            </div>   
+            
+            <!-- Modal Structure -->
+            @Html.Partial("Delete", Model)
+
+        </div>
+    </div>
+</div>
+
+<!-- Section that renders after jQuery plugin-->
+@section Scripts {
+    <script src="~/js/site.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

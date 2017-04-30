@@ -59,7 +59,7 @@ namespace school_register
         private void configureRoutes(IRouteBuilder routeBuilder)
         {
             routeBuilder.MapRoute("Default",
-                    "{controller=Student}/{action=Index}/{id?}");
+                    "{controller=Class}/{action=Index}/{id?}");
         }
     }
 }

@@ -1,0 +1,44 @@
+@model Room
+
+<!-- Modal Structure -->
+<div id="delete-room-@Model.ID" class="modal">
+
+    <nav>
+        <div class="nav-wrapper teal">
+            <a class="brand-logo center">Delete confirmation</a>
+        </div>
+    </nav>
+
+    <div class="room-delete">
+
+        <div class="modal-content center">
+            <h5 class="teal-text">Room -> @Model.NumeroAula</h5>
+            <p>Are you sure you want to remove this room? All the classes associated with that room will be set to null (room field)</p>
+        </div>
+
+        <div class="modal-footer">
+
+            <div class="col s12 m6">
+                <form asp-action="Delete" method="post">
+                    <div class="form-action">
+                        <button class="btn waves-effect waves-light col s12 red daken-1" asp-action="Delete" asp-route-id="@Model.ID">
+                            Confirm
+                            <i class="material-icons right">delete</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col s12 m6">
+                <div class="form-action">
+                    <button class="btn modal-close waves-effect waves-light col s12 yellow darken-2" asp-action="Index">
+                        Cancel
+                        <i class="material-icons right">settings_backup_restore</i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

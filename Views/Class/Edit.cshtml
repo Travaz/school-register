@@ -1,0 +1,108 @@
+@model Class
+
+@{
+    ViewBag.Title = $"Edit - {Model.Name}";
+}
+
+<div class="row">
+
+    <div class="container">
+
+        <div class="section">
+
+            <!-- Class personal data -->
+            <form asp-action="Edit" method="post" class="col s12">
+
+                <!-- Class.ID -->
+                <input type="hidden" asp-for="ID" />
+
+                <!-- Class image -->
+                <div class="row">
+                    <div class="col s12 m6 offset-m3 center">
+                        <img src="~/images/classes/classes.png" />
+                    </div>
+                </div>
+
+                <div class="row">
+                   
+                    <!-- Class.Name -->
+                    <div class="input-field col s12">
+                        <input asp-for="Name" id="first_name" type="text" class="validate" data-length="4">
+                        <span class="red-text" asp-validation-for="Name"></span>
+                        <label asp-for="Name" class="active">Class Name</label>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <!-- Class.FkRoom-->
+                    <div class="input-field col s12 m6">
+                        <select asp-for="FkRoom" asp-items="ViewBag.FkRoom">
+                            <option value="" disabled selected>Choose your option</option>
+                        </select>
+                        <label asp-for="FkRoom">Room</label>
+                    </div>
+
+                    <!-- Class.FkBranch -->
+                    <div class="input-field col s12 m6">
+                        <select asp-for="FkBranch" asp-items="ViewBag.FkBranch">
+                            <option value="" disabled selected>Choose your option</option>
+                        </select>
+                        <label asp-for="FkBranch">Branch</label>
+                    </div>
+
+                </div>
+
+                <!-- Validation sector -->
+                <div class="row m4 offset-m4 red-text"
+                     asp-validation-summary="ModelOnly">
+                </div>
+                
+                <div class="row">
+                    <div class="col s12 m6">
+                        <button class="btn waves-effect waves-light col s12 green accent-4"  type="submit">
+                            Save
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                    <div class="col s12 m6">
+                        <button class="btn waves-effect waves-light col s12" type="reset">
+                            Reset Change
+                            <i class="material-icons right">loop</i>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+            <form method="get" class="col s12 m6">
+                <div class="form-action">
+                    <button class="btn waves-effect waves-light col s12 yellow darken-2" asp-action="Index">
+                        Back
+                        <i class="material-icons right">settings_backup_restore</i>
+                    </button>
+                </div>
+            </form>
+
+            <form method="get" class="col s12 m6">
+                <div class="form-action">
+                    <a href="#delete-class-@Model.ID" class="btn waves-effect waves-light col s12 red daken-1">
+                        Remove
+                        <i class="material-icons right">delete</i>
+                    </a>
+                </div>         
+            </form>
+
+            <!-- Modal Structure -->
+            @Html.Partial("Delete", Model)
+        
+        </div>
+    </div>
+</div>
+
+<!-- Section that renders after jQuery plugin-->
+@section Scripts {
+    <script src="~/js/site.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

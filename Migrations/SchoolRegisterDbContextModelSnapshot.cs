@@ -18,18 +18,24 @@ namespace school_register.Migrations
 
             modelBuilder.Entity("school_register.Model.Entities.Branch", b =>
                 {
-                    b.Property<string>("Name")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(45)");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Icon")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(45)");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime");
 
-                    b.HasKey("Name")
+                    b.HasKey("ID")
                         .HasName("PK_branch");
 
                     b.ToTable("branch");
@@ -37,19 +43,23 @@ namespace school_register.Migrations
 
             modelBuilder.Entity("school_register.Model.Entities.Class", b =>
                 {
-                    b.Property<string>("Name")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(8)");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<string>("FkBranch")
+                    b.Property<int?>("FkBranch")
+                        .IsRequired()
                         .HasColumnName("fk_branch")
-                        .HasColumnType("varchar(45)");
+                        .HasColumnType("int(11)");
 
                     b.Property<int?>("FkRoom")
                         .HasColumnName("fk_room")
                         .HasColumnType("int(11)");
 
-                    b.HasKey("Name")
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("char(8)");
+
+                    b.HasKey("ID")
                         .HasName("PK_class");
 
                     b.HasIndex("FkBranch")
@@ -63,9 +73,8 @@ namespace school_register.Migrations
 
             modelBuilder.Entity("school_register.Model.Entities.Room", b =>
                 {
-                    b.Property<int>("NumeroAula")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int(11)");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("Floor")
                         .HasColumnType("int(11)");
@@ -74,7 +83,10 @@ namespace school_register.Migrations
                         .HasColumnName("LIM")
                         .HasColumnType("tinyint(1)");
 
-                    b.HasKey("NumeroAula")
+                    b.Property<int>("NumeroAula")
+                        .HasColumnType("int(11)");
+
+                    b.HasKey("ID")
                         .HasName("PK_room");
 
                     b.ToTable("room");
@@ -98,10 +110,10 @@ namespace school_register.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(16)");
 
-                    b.Property<string>("FkClass")
+                    b.Property<int?>("FkClass")
                         .IsRequired()
                         .HasColumnName("fk_class")
-                        .HasColumnType("char(8)");
+                        .HasColumnType("int(11)");
 
                     b.Property<int>("Gender")
                         .HasColumnType("int(11)");
@@ -126,20 +138,22 @@ namespace school_register.Migrations
             modelBuilder.Entity("school_register.Model.Entities.Class", b =>
                 {
                     b.HasOne("school_register.Model.Entities.Branch", "FkBranchNavigation")
-                        .WithMany("Class")
+                        .WithMany("Classes")
                         .HasForeignKey("FkBranch")
                         .HasConstraintName("fk_classes_branch")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("school_register.Model.Entities.Room", "FkRoomNavigation")
                         .WithMany("Class")
-                        .HasForeignKey("FkRoom");
+                        .HasForeignKey("FkRoom")
+                        .HasConstraintName("fk_classes_rooms")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("school_register.Model.Entities.Student", b =>
                 {
                     b.HasOne("school_register.Model.Entities.Class", "FkClassNavigation")
-                        .WithMany("Student")
+                        .WithMany("Students")
                         .HasForeignKey("FkClass")
                         .HasConstraintName("fk_student_class")
                         .OnDelete(DeleteBehavior.Cascade);

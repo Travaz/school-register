@@ -16,27 +16,28 @@ namespace school_register.Model.Entities
         public int ID { get; set; }
 
         [Display(Name="Fiscal Code")]
-        [Required(ErrorMessage = "Il codice fiscale è richiesto")]
+        [Required(ErrorMessage = "Fiscal code is required")]
         [FiscalCodeValidation]
         public string FiscalCode { get; set; }
 
-        [Required(ErrorMessage = "Il nome è richiesto")]
+        [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Il cognome è richiesto")]
+        [Required(ErrorMessage = "Surname is required")]
         public string Surname { get; set; }
 
-        [Required(ErrorMessage = "L'età è richiesta")]
+        [Required(ErrorMessage = "Age is required")]
         public int Age { get; set; }
 
+        [Required(ErrorMessage = "Gender is required")]
         public Gender Gender { get; set; }
 
         [DataType(DataType.Date)]
-        [Required(ErrorMessage = "La data di nascita è richiesta")]
+        [Required(ErrorMessage = "Birthday is required")]
         public DateTime Birthday { get; set; }
 
-        [Required(ErrorMessage = "La classe è richiesta")]
-        public string FkClass { get; set; }
+        [Required(ErrorMessage = "Class is required")]
+        public int? FkClass { get; set; }
 
         public string Email { get; set; }
 

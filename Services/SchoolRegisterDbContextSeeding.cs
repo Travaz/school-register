@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using school_register.Data;
 using school_register.Model.Entities;
+using System.Collections.Generic;
 
 namespace school_register.Services
 {
@@ -20,46 +21,56 @@ namespace school_register.Services
             /* Branches */
                 Branch ComputerScience = new Branch()
                 {
+                    ID = 1,
                     Name = "Computer Science",
-                    StartDate = DateTime.UtcNow,
+                    StartDate = DateTime.Parse("1988/09/12"),
                     Description = "That's the computer science course. " +
                                         "By the end of the course, you'll be able to build and deploy from simple " +
                                         "to tricky Web Applications, Desktop Apps and Mobile Games",
+                    Icon = "computer science.png"
                 };
                 Branch Chemistry = new Branch()
                 {
+                    ID = 2,
                     Name = "Chemistry",
-                    StartDate = DateTime.UtcNow,
+                    StartDate = DateTime.Parse("2005/09/15"),
                     Description = "Bla bla bla",
+                    Icon = "chemistry.png"
                 };
                 Branch Mechanics = new Branch()
                 {
+                    ID = 3,
                     Name = "Mechanics",
-                    StartDate = DateTime.UtcNow,
+                    StartDate = DateTime.Parse("1999/09/05"),
                     Description = "Bla bla bla",
+                    Icon = "mechanics.png"
                 };
 
             /*Rooms*/
                 Room DuecentoTre = new Room()
                 {
+                    ID = 1,
                     NumeroAula = 203,
                     Floor = 2,
                     Lim = true,
                 };
                 Room DuecentoCinque = new Room()
                 {
+                    ID = 2,
                     NumeroAula = 205,
                     Floor = 2,
                     Lim = false,
                 };
                 Room DuecentoOtto = new Room()
                 {
+                    ID = 3,
                     NumeroAula = 208,
                     Floor = 2,
                     Lim = true,
                 };
                 Room TrecentoQuattro = new Room()
                 {
+                    ID = 4,
                     NumeroAula = 304,
                     Floor = 3,
                     Lim = false,
@@ -68,27 +79,31 @@ namespace school_register.Services
             /*Classes*/
                 Class QuintaBI = new Class()
                 {
+                    ID = 1,
                     Name = "5BI",
-                    FkBranch = "Computer Science",
-                    FkRoom = 203
+                    FkBranch = 1,
+                    FkRoom = 1
                 };
                 Class QuartaAM = new Class()
                 {
+                    ID = 2,
                     Name = "4AM",
-                    FkBranch = "Chemistry",
-                    FkRoom = 205,
+                    FkBranch = 2,
+                    FkRoom = 2,
                 };
                 Class QuintaAM = new Class()
                 {
+                    ID = 3,
                     Name = "5AM",
-                    FkBranch = "Chemistry",
-                    FkRoom = 208,
+                    FkBranch = 2,
+                    FkRoom = 3,
                 };
                 Class TerzaCC = new Class()
                 {
+                    ID = 4,
                     Name = "3CC",
-                    FkBranch = "Mechanics",
-                    FkRoom = 304,
+                    FkBranch = 3,
+                    FkRoom = 4,
                 };
 
             /* Students */
@@ -100,7 +115,7 @@ namespace school_register.Services
                     Surname = "Ravanelli",                   
                     Birthday = DateTime.Parse("1996/01/30"),
                     Email = "mario.ravanelli@marconirovereto.it",
-                    FkClass = "5AM"
+                    FkClass = 3
                 };
                 Student Aurora = new Student()
                 {
@@ -110,7 +125,7 @@ namespace school_register.Services
                     Surname = "Benedetti",
                     Birthday = DateTime.Parse("2000/04/08"),
                     Email = "aurora.benedetti@marconirovereto.it",
-                    FkClass = "3CC"
+                    FkClass = 4
                 };
                 Student Chiara = new Student()
                 {
@@ -120,7 +135,7 @@ namespace school_register.Services
                     Surname = "Pisoni",
                     Birthday = DateTime.Parse("2000/08/14"),
                     Email = "chiara.pisoni@marconirovereto.it",
-                    FkClass = "3CC"
+                    FkClass = 4
                 };
                 Student Daniel = new Student()
                 {
@@ -130,7 +145,7 @@ namespace school_register.Services
                     Surname = "Travaglia",
                     Birthday = DateTime.Parse("1998/07/30"),
                     Email = "daniel.travaglia@marconirovereto.it",
-                    FkClass = "5BI"
+                    FkClass = 1
                 };
                 Student Manuele = new Student()
                 {
@@ -140,7 +155,7 @@ namespace school_register.Services
                     Surname = "Maistri",
                     Birthday = DateTime.Parse("1999/12/25"),
                     Email = "manuele.maistri@marconirovereto.it",
-                    FkClass = "4AM"
+                    FkClass = 2
                 };
                 Student Sara = new Student()
                 {
@@ -150,7 +165,7 @@ namespace school_register.Services
                     Surname = "De Baroni",
                     Birthday = DateTime.Parse("1998/10/03"),
                     Email = "sara.debaroni@marconirovereto.it",
-                    FkClass = "3CC"
+                    FkClass = 4
                 };
 
 

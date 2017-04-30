@@ -16,7 +16,7 @@ namespace school_register.Services.Extension
             {
                 return ValidationResult.Success;
             }
-            return new ValidationResult("Il codice fiscale non è corretto (16 caratteri)");
+            return new ValidationResult("The fiscal code is wrong (Es: 'TRVDNL98L30H330A')");
         }
 
     }
