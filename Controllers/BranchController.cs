@@ -26,15 +26,16 @@ namespace school_register.Controllers
         }
 
         // GET: Branch/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int? id)
         {
-            if (id == string.Empty)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var branch = await _context.Branch
-                .SingleOrDefaultAsync(m => m.Name == id);
+                .Include(b => b.Class)
+                .SingleOrDefaultAsync(m => m.ID == id);
             if (branch == null)
             {
                 return NotFound();
@@ -58,6 +59,7 @@ namespace school_register.Controllers
         {
             if (ModelState.IsValid)
             {
+                branch.Icon = "default.png";
                 _context.Add(branch);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -66,14 +68,14 @@ namespace school_register.Controllers
         }
 
         // GET: Branch/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            if (id == string.Empty)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var branch = await _context.Branch.SingleOrDefaultAsync(m => m.Name == id);
+            var branch = await _context.Branch.SingleOrDefaultAsync(m => m.ID == id);
             if (branch == null)
             {
                 return NotFound();
@@ -86,13 +88,13 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Name,Description,StartDate")] Branch branch)
+        public async Task<IActionResult> Edit(int? id, [Bind("ID,Name,Description,StartDate,Icon")] Branch branch)
         {
-            if (id != branch.Name)
+            if (id != branch.ID)
             {
                 return NotFound();
             }
-
+           
             if (ModelState.IsValid)
             {
                 try
@@ -102,7 +104,7 @@ namespace school_register.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BranchExists(branch.Name))
+                    if (!BranchExists(branch.ID))
                     {
                         return NotFound();
                     }
@@ -117,15 +119,15 @@ namespace school_register.Controllers
         }
 
         // GET: Branch/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            if (id == string.Empty)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var branch = await _context.Branch
-                .SingleOrDefaultAsync(m => m.Name == id);
+                .SingleOrDefaultAsync(m => m.ID == id);
             if (branch == null)
             {
                 return NotFound();
@@ -137,17 +139,17 @@ namespace school_register.Controllers
         // POST: Branch/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            var branch = await _context.Branch.SingleOrDefaultAsync(m => m.Name == id);
+            var branch = await _context.Branch.SingleOrDefaultAsync(m => m.ID == id);
             _context.Branch.Remove(branch);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        private bool BranchExists(string id)
+        private bool BranchExists(int? id)
         {
-            return _context.Branch.Any(e => e.Name == id);
+            return _context.Branch.Any(e => e.ID == id);
         }
     }
 }

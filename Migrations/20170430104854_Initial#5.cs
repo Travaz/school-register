@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace school_register.Migrations
 {
-    public partial class Initial3 : Migration
+    public partial class Initial5 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,6 +15,7 @@ namespace school_register.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Description = table.Column<string>(type: "text", nullable: false),
+                    Icon = table.Column<string>(type: "text", nullable: true),
                     Name = table.Column<string>(type: "varchar(45)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
@@ -44,9 +45,9 @@ namespace school_register.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
-                    fk_branch = table.Column<int>(type: "int(11)", nullable: true),
+                    fk_branch = table.Column<int>(type: "int(11)", nullable: false),
                     fk_room = table.Column<int>(type: "int(11)", nullable: true),
-                    Name = table.Column<string>(type: "char(8)", nullable: true)
+                    Name = table.Column<string>(type: "char(8)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,7 +63,7 @@ namespace school_register.Migrations
                         column: x => x.fk_room,
                         principalTable: "room",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(

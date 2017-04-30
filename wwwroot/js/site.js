@@ -9,7 +9,7 @@ $(document).ready(function () {
     $('select').material_select();
 
     // Enable character counter validation
-    $('input#fiscalcode').characterCounter();
+    $('input.char_chount').characterCounter();
 
     // Enable collapsible ul structure in "Edit" view
     $('.collapsible').collapsible();
@@ -17,6 +17,8 @@ $(document).ready(function () {
     // Enable delete modal to be triggered
     $('.modal').modal({
         dismissible: true, //Closed by clicking outside
+        inDuration: 1500, // Transition in duration
+        outDuration: 500, // Transition out duration
         opacity: .5,
         complete: function () {
             console.log("Modal closed");

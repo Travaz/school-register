@@ -34,6 +34,7 @@ namespace school_register.Controllers
             }
 
             var room = await _context.Room
+                .Include(r => r.Classes)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (room == null)
             {
@@ -86,7 +87,7 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NumeroAula,Floor,Lim")] Room room)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,NumeroAula,Floor,Lim")] Room room)
         {
             if (id != room.ID)
             {

@@ -23,24 +23,27 @@ namespace school_register.Services
                 {
                     ID = 1,
                     Name = "Computer Science",
-                    StartDate = DateTime.UtcNow,
+                    StartDate = DateTime.Parse("1988/09/12"),
                     Description = "That's the computer science course. " +
                                         "By the end of the course, you'll be able to build and deploy from simple " +
                                         "to tricky Web Applications, Desktop Apps and Mobile Games",
+                    Icon = "computer science.png"
                 };
                 Branch Chemistry = new Branch()
                 {
                     ID = 2,
                     Name = "Chemistry",
-                    StartDate = DateTime.UtcNow,
+                    StartDate = DateTime.Parse("2005/09/15"),
                     Description = "Bla bla bla",
+                    Icon = "chemistry.png"
                 };
                 Branch Mechanics = new Branch()
                 {
                     ID = 3,
                     Name = "Mechanics",
-                    StartDate = DateTime.UtcNow,
+                    StartDate = DateTime.Parse("1999/09/05"),
                     Description = "Bla bla bla",
+                    Icon = "mechanics.png"
                 };
 
             /*Rooms*/

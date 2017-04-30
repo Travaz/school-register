@@ -1,43 +1,113 @@
-@model school_register.Model.Entities.Branch
+@model Branch
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewBag.Title = $"Edit - {Model.Name}";
 }
 
-<h2>Edit</h2>
+<div class="row">
 
-<form asp-action="Edit">
-    <div class="form-horizontal">
-        <h4>Branch</h4>
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="Name" />
-        <div class="form-group">
-            <label asp-for="Description" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="StartDate" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+    <div class="container">
+
+        <div class="section">
+
+            <!-- Branch personal data -->
+            <form asp-action="Edit" method="post" class="col s12">
+
+                <!-- Branch.ID -->
+                <input type="hidden" asp-for="ID" />
+
+                <!-- Branch image -->
+                <div class="row">
+                    <div class="col s12 m6 offset-m3 center">
+                        <img src="~/images/branches/@Model.Icon" />
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <!-- Branch.Name -->
+                    <div class="input-field col s12 m6">
+                        <input asp-for="Name" type="text" class="validate">
+                        <span class="red-text" asp-validation-for="Name"></span>
+                        <label asp-for="Name" class="active">Branch Name</label>
+                    </div>
+
+                    <!-- Branch.StartDate -->
+                    <div class="input-field col s12 m6">
+                        <input asp-for="StartDate" type="date" class="validate">
+                        <span class="red-text" asp-validation-for="StartDate"></span>
+                        <label asp-for="StartDate" class="active">Start Date</label>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <!-- Branch.Description -->
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">mode_edit</i>
+                        <textarea asp-for="Description" class="materialize-textarea char_chount" data-length="255"></textarea>
+                        <label asp-for="Description">Description</label>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <!-- Branch.Icon -->
+                        <input hidden asp-for="Icon" type="text" class="validate">
+                </div>
+
+                <!-- Validation sector -->
+                <div class="row m4 offset-m4 red-text"
+                     asp-validation-summary="ModelOnly">
+                </div>
+
+                <div class="row">
+                    <div class="col s12 m6">
+                        <button class="btn waves-effect waves-light col s12 green accent-4" type="submit">
+                            Save
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                    <div class="col s12 m6">
+                        <button class="btn waves-effect waves-light col s12" type="reset">
+                            Reset Change
+                            <i class="material-icons right">loop</i>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+            <form method="get" class="col s12 m6">
+                <div class="form-action">
+                    <button class="btn waves-effect waves-light col s12 yellow darken-2" asp-action="Index">
+                        Back
+                        <i class="material-icons right">settings_backup_restore</i>
+                    </button>
+                </div>
+            </form>
+
+            <form method="get" class="col s12 m6">
+                <div class="form-action">
+                    <a href="#delete-branch-@Model.ID" class="btn waves-effect waves-light col s12 red daken-1">
+                        Remove
+                        <i class="material-icons right">delete</i>
+                    </a>
+                </div>
+            </form>
+
+            <!-- Modal Structure -->
+            @Html.Partial("Delete", Model)
+
         </div>
     </div>
-</form>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
+<!-- Section that renders after jQuery plugin-->
 @section Scripts {
+    <script src="~/js/site.js"></script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+

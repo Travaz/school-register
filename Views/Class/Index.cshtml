@@ -40,9 +40,13 @@
                                 <div class="col s12 m10">
                                     <h6 class="class-name">@classes.Name</h6>
                                 </div>
-                                <div class="col s12 m2">
-                                    <h6 class="class-class">@classes.FkRoomNavigation.NumeroAula</h6>
-                                </div>
+                                @if (classes.FkRoom != null)
+                                {
+                                    <div class="col s12 m2">
+                                        <h6 class="class-room">@classes.FkRoomNavigation.NumeroAula</h6>
+                                    </div>
+                                }
+
                             </div>
                         </div>
                     </div>

@@ -25,6 +25,9 @@ namespace school_register.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Icon")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("varchar(45)");
@@ -44,6 +47,7 @@ namespace school_register.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("FkBranch")
+                        .IsRequired()
                         .HasColumnName("fk_branch")
                         .HasColumnType("int(11)");
 
@@ -52,6 +56,7 @@ namespace school_register.Migrations
                         .HasColumnType("int(11)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("char(8)");
 
                     b.HasKey("ID")
@@ -133,7 +138,7 @@ namespace school_register.Migrations
             modelBuilder.Entity("school_register.Model.Entities.Class", b =>
                 {
                     b.HasOne("school_register.Model.Entities.Branch", "FkBranchNavigation")
-                        .WithMany("Class")
+                        .WithMany("Classes")
                         .HasForeignKey("FkBranch")
                         .HasConstraintName("fk_classes_branch")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -141,13 +146,14 @@ namespace school_register.Migrations
                     b.HasOne("school_register.Model.Entities.Room", "FkRoomNavigation")
                         .WithMany("Class")
                         .HasForeignKey("FkRoom")
-                        .HasConstraintName("fk_classes_rooms");
+                        .HasConstraintName("fk_classes_rooms")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("school_register.Model.Entities.Student", b =>
                 {
                     b.HasOne("school_register.Model.Entities.Class", "FkClassNavigation")
-                        .WithMany("Student")
+                        .WithMany("Students")
                         .HasForeignKey("FkClass")
                         .HasConstraintName("fk_student_class")
                         .OnDelete(DeleteBehavior.Cascade);

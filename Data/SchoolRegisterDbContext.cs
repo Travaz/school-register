@@ -36,6 +36,9 @@ namespace school_register.Data
 
                 entity.Property(e => e.StartDate)
                     .HasColumnType("datetime");
+
+                entity.Property(e => e.Icon)
+                    .HasColumnType("text");
             });
 
             modelBuilder.Entity<Class>(entity =>
@@ -63,14 +66,15 @@ namespace school_register.Data
                     .HasColumnType("int(11)");
 
                 entity.HasOne(d => d.FkBranchNavigation)
-                    .WithMany(p => p.Classes)
+                    .WithMany(p => p.Class)
                     .HasForeignKey(d => d.FkBranch)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_classes_branch");
 
                 entity.HasOne(d => d.FkRoomNavigation)
-                    .WithMany(p => p.Class)
+                    .WithMany(p => p.Classes)
                     .HasForeignKey(d => d.FkRoom)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("fk_classes_rooms");
             });
 

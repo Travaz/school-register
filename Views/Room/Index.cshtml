@@ -1,41 +1,60 @@
-@model IEnumerable<school_register.Model.Entities.Room>
+@model IEnumerable<Room>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewBag.Title = "Rooms";
 }
 
-<h2>Index</h2>
+<!-- Tables with rooms -->
+<div id="rooms" class="col s12">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Floor)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lim)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Floor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lim)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.NumeroAula">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.NumeroAula">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.NumeroAula">Delete</a>
-            </td>
-        </tr>
+    <div class="row">
+
+        <div class="col s12 m4 l2">
+            <div class="card hoverable">
+                <a asp-action="Create" class="col s12 btn-block teal btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+            </div>
+        </div>
+
+        @foreach (var room in Model)
+        {
+            <div class="col s12 m4 l2">
+
+                <div class="model-card hoverable">
+                    <div class="card">
+                        <div class="card-image">
+                            <img class="circle responsive-img" src="~/images/rooms/door.png" />
+                        </div>
+                        <ul class="card-buttons">
+                            <li>
+                                <a asp-action="Edit" asp-route-id="@room.ID" class="btn-floating waves-effect waves-light green darken-2 hoverable"><i class="material-icons">mode_edit</i></a>
+                            </li>
+                            <li>
+                                <a asp-action="Details" asp-route-id="@room.ID" class="btn-floating waves-effect waves-light light-blue accent-2 hoverable"><i class="material-icons">info_outline</i></a>
+                            </li>
+                            <li>
+                                <a href="#delete-room-@room.ID" class="btn-floating waves-effect waves-light red accent-2 hoverable"><i class="material-icons right">delete</i></a>
+                            </li>
+                        </ul>
+                        <div class="card-content white teal-text">
+                            <div class="row">
+                                <div class="col s12 m12">
+                                    <h6 class="room-name">@room.NumeroAula</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Structure -->
+                @Html.Partial("Delete", room)
+
+            </div>
+        }
+
+    </div>
+</div>
+
+<!-- Section that renders after jQuery plugin-->
+@section Scripts {
+    <script src="~/js/site.js"></script>
 }
-    </tbody>
-</table>
