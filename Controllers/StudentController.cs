@@ -61,7 +61,7 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(StudentViewModel studentVM)
+        public async Task<IActionResult> Create([Bind("FiscalCode,Name,Surname,Gender,Birthday,Age,Email,FkClass")]StudentViewModel studentVM)
         {
             if (ModelState.IsValid)
             {

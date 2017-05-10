@@ -59,7 +59,7 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(RoomViewModel roomVM)
+        public async Task<IActionResult> Create([Bind("NumeroAula,Floor,Lim")]RoomViewModel roomVM)
         {
             if (ModelState.IsValid)
             {

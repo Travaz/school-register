@@ -46,7 +46,7 @@
                     <!-- Branch.Description -->
                     <div class="input-field col s12">
                         <i class="material-icons prefix">mode_edit</i>
-                        <textarea asp-for="Description" class="materialize-textarea"></textarea>
+                        <textarea asp-for="Description" class="materialize-textarea char_chount" data-length="255"></textarea>
                         <span class="red-text" asp-validation-for="Description"></span>
                         <label asp-for="Description">Description</label>
                     </div>

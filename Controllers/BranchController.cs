@@ -59,7 +59,7 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(BranchViewModel branchVM)
+        public async Task<IActionResult> Create([Bind("Name,StartDate,Description")]BranchViewModel branchVM)
         {
             if (ModelState.IsValid)
             {

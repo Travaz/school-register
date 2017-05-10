@@ -9,10 +9,16 @@ $(document).ready(function () {
     $('select').material_select();
 
     // Enable character counter validation
-    $('input.char_chount').characterCounter();
+    $('char_chount').characterCounter();
 
     // Enable collapsible ul structure in "Edit" view
     $('.collapsible').collapsible();
+
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 30, // Creates a dropdown of 15 years to control year
+        max: true
+    });
 
     // Enable delete modal to be triggered
     $('.modal').modal({
