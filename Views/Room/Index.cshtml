@@ -46,7 +46,7 @@
                 </div>
 
                 <!-- Modal Structure -->
-                @Html.Partial("Delete", room)
+                @Html.Partial("Delete", _mapper.GetRoomVM(room))
 
             </div>
         }

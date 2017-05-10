@@ -26,12 +26,38 @@
                         <div class="collapsible-body"><span>@Html.DisplayFor(model => model.Name)</span></div>
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(classes => classes.FkRoom)</div>
-                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.FkRoomNavigation.NumeroAula)</span></div>
+                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(classes => _mapper.GetClassVM(Model).FkRoom)</div>
+                        <div class="collapsible-body">
+
+                            <div class="collection">
+                                <a asp-controller="Room" asp-action="Details" asp-route-id="@Model.FkRoomNavigation.ID" class="collection-item avatar">
+                                    <img src="~/images/rooms/door.png" alt="" class="circle">
+                                    <span class="title">@Model.FkRoomNavigation.NumeroAula</span>
+                                    <p>
+                                        @Model.FkRoomNavigation.Floor
+                                    </p>
+                                </a>
+                            </div>
+
+                        </div>
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(classes => classes.FkBranch)</div>
-                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.FkBranchNavigation.Name)</span></div>
+                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(classes => _mapper.GetClassVM(Model).FkBranch)</div>
+                        <div class="collapsible-body">
+
+                            <div class="collection">
+
+                                <a asp-controller="Branch" asp-action="Details" asp-route-id="@Model.FkBranchNavigation.ID" class="collection-item avatar">
+                                    <img src="~/images/branches/@Model.FkBranchNavigation.Icon" alt="" class="circle" />
+                                    <span class="title">@Model.FkBranchNavigation.Name</span>
+                                    <p>
+                                        @Model.FkBranchNavigation.Description
+                                    </p>
+                                </a>
+
+                            </div>
+
+                        </div>
                     </li>
                     <li>
                         <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(classes => classes.Students)</div>
@@ -42,11 +68,10 @@
                                 {
 
                                     <a asp-controller="Student" asp-action="Details" asp-route-id="@student.ID" class="collection-item avatar">
-                                        <img src="~/images/students/student256.png" alt="" class="circle">
+                                        <img src="~/images/students/student256.png" class="circle" />
                                         <span class="title">@student.Name @student.Surname</span>
                                         <p>
-                                            @student.Birthday.Date<br>
-                                            @student.Gender
+                                            @student.Birthday.Date
                                         </p>
                                     </a>
                                 }
@@ -86,7 +111,7 @@
             </div>   
             
             <!-- Modal Structure -->
-            @Html.Partial("Delete", Model)
+            @Html.Partial("Delete", _mapper.GetClassVM(Model))
 
         </div>
     </div>

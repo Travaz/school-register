@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using school_register.Data;
-using school_register.Model.Entities;
+using school_register.Models;
 using System.Collections.Generic;
 
 namespace school_register.Services

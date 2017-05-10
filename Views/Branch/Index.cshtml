@@ -46,7 +46,7 @@
                 </div>
 
                 <!-- Modal Structure -->
-                @Html.Partial("Delete", branch)
+                @Html.Partial("Delete", _mapper.GetBranchVM(branch))
 
             </div>
         }

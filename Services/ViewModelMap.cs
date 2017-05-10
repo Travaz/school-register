@@ -1,5 +1,5 @@
 using System;
-using school_register.Model.Entities;
+using school_register.Models;
 using school_register.ViewModels;
 
 namespace school_register.Services
@@ -8,12 +8,12 @@ namespace school_register.Services
     {
          Branch GetBranch(BranchViewModel branchVM);
          Class GetClass(ClassViewModel classVM);
-         Student GetStudent(StudentsViewModel studentVM);
+         Student GetStudent(StudentViewModel studentVM);
          Room GetRoom(RoomViewModel roomVM);
 
          BranchViewModel GetBranchVM(Branch branch);
          ClassViewModel GetClassVM(Class _class);
-         StudentsViewModel GetStudentVM(Student student);
+         StudentViewModel GetStudentVM(Student student);
          RoomViewModel GetRoomVM(Room room);
     }
 
@@ -27,7 +27,7 @@ namespace school_register.Services
                     Name = branchVM.Name,
                     Description = branchVM.Description,
                     StartDate = branchVM.StartDate,
-                    Icon = "default.png"
+                    Icon = branchVM.Icon
                 };
 
         public Class GetClass(ClassViewModel classVM)
@@ -50,14 +50,14 @@ namespace school_register.Services
                     Lim = roomVM.Lim
                 };
 
-        public Student GetStudent(StudentsViewModel studentVM)
+        public Student GetStudent(StudentViewModel studentVM)
             => 
                 new Student
                 {
                     ID = studentVM.ID,
                     Name = studentVM.Name,
                     Surname = studentVM.Surname,
-                    Birthday = studentVM.Birthday,
+                    Birthday = studentVM.Birthday.ToUniversalTime(),
                     Gender = studentVM.Gender,
                     Age = studentVM.Age,
                     Email = studentVM.Email,
@@ -65,14 +65,14 @@ namespace school_register.Services
                     FkClass = studentVM.FkClass
                 };
         
-        public StudentsViewModel GetStudentVM(Student student)
+        public StudentViewModel GetStudentVM(Student student)
             =>
-                new StudentsViewModel
+                new StudentViewModel
                 {
                     ID = student.ID,
                     Name = student.Name,
                     Surname = student.Surname,
-                    Birthday = student.Birthday,
+                    Birthday = student.Birthday.ToUniversalTime(),
                     Gender = student.Gender,
                     Age = student.Age,
                     Email = student.Email,
@@ -108,7 +108,7 @@ namespace school_register.Services
                     Name = branch.Name,
                     Description = branch.Description,
                     StartDate = branch.StartDate,
-                    Icon = "default.png"
+                    Icon = branch.Icon
                 };
     }
 }

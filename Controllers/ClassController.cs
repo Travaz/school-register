@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using school_register.Data;
-using school_register.Model.Entities;
 using school_register.Services;
 using school_register.ViewModels;
 
@@ -45,6 +44,7 @@ namespace school_register.Controllers
                 .Include(c => c.FkRoomNavigation)
                 .Include(c => c.Students)
                 .SingleOrDefaultAsync(m => m.ID == id);
+
             if (_class == null)
             {
                 return NotFound();
@@ -152,12 +152,15 @@ namespace school_register.Controllers
                 .Include(c => c.FkBranchNavigation)
                 .Include(c => c.FkRoomNavigation)
                 .SingleOrDefaultAsync(m => m.ID == id);
-            if (_class == null)
+
+            var classVM = _mapper.GetClassVM(_class);
+
+            if (classVM == null)
             {
                 return NotFound();
             }
 
-            return View(_class);
+            return View(classVM);
         }
 
         // POST: Class/Delete/5

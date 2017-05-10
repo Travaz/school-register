@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using school_register.Data;
-using school_register.Model.Entities;
+using school_register.Models;
 
 namespace school_register.Services
 {

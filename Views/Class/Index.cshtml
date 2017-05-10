@@ -53,7 +53,7 @@
                 </div>
 
                 <!-- Modal Structure -->
-                @Html.Partial("Delete", classes)
+                @Html.Partial("Delete", _mapper.GetClassVM(classes))
 
             </div>
         }

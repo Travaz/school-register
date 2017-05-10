@@ -1,10 +1,10 @@
-﻿@model Student
+﻿@model StudentViewModel
 
 @if (Model.Gender == Gender.Female)
 {
-    <img src="~/images/students/studentfemale256.png" />
+    <img src="~/images/students/studentfemale256.png" class="circle" />
 }
 else
 {
-    <img src="~/images/students/studentmale256.png"/>
+    <img src="~/images/students/studentmale256.png" class="circle"/>
 }

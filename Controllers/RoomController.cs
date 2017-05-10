@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using school_register.Data;
-using school_register.Model.Entities;
 using school_register.Services;
 using school_register.ViewModels;
 
@@ -40,8 +39,6 @@ namespace school_register.Controllers
             var room = await _context.Room
                 .Include(r => r.Classes)
                 .SingleOrDefaultAsync(m => m.ID == id);
-
-            var roomVM = _mapper.GetRoomVM(room);
 
             if (room == null)
             {
@@ -84,11 +81,13 @@ namespace school_register.Controllers
             }
 
             var room = await _context.Room.SingleOrDefaultAsync(m => m.ID == id);
-            if (room == null)
+            var roomVM = _mapper.GetRoomVM(room);
+
+            if (roomVM == null)
             {
                 return NotFound();
             }
-            return View(room);
+            return View(roomVM);
         }
 
         // POST: Room/Edit/5
@@ -138,12 +137,15 @@ namespace school_register.Controllers
 
             var room = await _context.Room
                 .SingleOrDefaultAsync(m => m.ID == id);
-            if (room == null)
+
+            var roomVM = _mapper.GetRoomVM(room);
+
+            if (roomVM == null)
             {
                 return NotFound();
             }
 
-            return View(room);
+            return View(roomVM);
         }
 
         // POST: Room/Delete/5

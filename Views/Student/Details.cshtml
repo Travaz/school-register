@@ -14,13 +14,13 @@
             <!-- Student image -->
             <div class="row">
                 <div class="col s12 m6 offset-m3 center">
-                    @Html.Partial("ProfilePicture", Model)
+                    @Html.Partial("ProfilePicture", _mapper.GetStudentVM(Model))
                     <h4 class="">@Model.Name @Model.Surname</h4>
                 </div>
             </div>
 
 
-            <div class="row student-details">
+            <div class="row model-details">
 
                 <ul class="collapsible popout col s12" data-collapsible="accordion">
                     <li>
@@ -52,8 +52,20 @@
                         <div class="collapsible-body"><span>@Html.DisplayFor(model => model.Email)</span></div>
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">class</i>@Html.DisplayNameFor(student => student.FkClassNavigation)</div>
-                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.FkClassNavigation.Name)</span></div>
+                        <div class="collapsible-header"><i class="material-icons">class</i>@Html.DisplayNameFor(student => _mapper.GetStudentVM(Model).FkClass)</div>
+                        <div class="collapsible-body">
+
+                            <div class="collection">
+                                <a asp-controller="Class" asp-action="Details" asp-route-id="@Model.FkClassNavigation.ID" class="collection-item avatar">
+                                    <img src="~/images/classes/classes.png" alt="" class="circle">
+                                    <span class="title">@Model.FkClassNavigation.Name</span>
+                                    <p>
+                                        @Model.FkClassNavigation.FkRoom
+                                    </p>
+                                </a>
+                            </div>
+
+                        </div>
                     </li>
                 </ul>
 
@@ -87,7 +99,7 @@
             </div>   
             
             <!-- Modal Structure -->
-            @Html.Partial("Delete", Model)
+            @Html.Partial("Delete", _mapper.GetStudentVM(Model))
 
         </div>
     </div>

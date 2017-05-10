@@ -1,4 +1,8 @@
-﻿@using school_register.Model.Entities;
+﻿@using System
+@using school_register.Models;
 @using school_register.ViewModels;
-@using System
+@using school_register.Services;
+
+@inject IViewModelMap _mapper
+
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

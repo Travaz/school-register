@@ -10,7 +10,7 @@ namespace school_register.ViewModels
         public string Name { get; set; }
         [Required(ErrorMessage = "Branch description is required")]
         public string Description { get; set; }
-        [DisplayFormat(DataFormatString = @"{0:dd\/MM\/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.DateTime)]
         public DateTime StartDate { get; set; }
         public string Icon { get; set; }
     }

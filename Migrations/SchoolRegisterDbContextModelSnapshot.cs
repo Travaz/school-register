@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using school_register.Data;
-using school_register.Model.Entities;
+using school_register.Models;
 
 namespace school_register.Migrations
 {
@@ -16,7 +16,7 @@ namespace school_register.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1");
 
-            modelBuilder.Entity("school_register.Model.Entities.Branch", b =>
+            modelBuilder.Entity("school_register.Models.Branch", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
@@ -41,13 +41,12 @@ namespace school_register.Migrations
                     b.ToTable("branch");
                 });
 
-            modelBuilder.Entity("school_register.Model.Entities.Class", b =>
+            modelBuilder.Entity("school_register.Models.Class", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("FkBranch")
-                        .IsRequired()
                         .HasColumnName("fk_branch")
                         .HasColumnType("int(11)");
 
@@ -56,7 +55,6 @@ namespace school_register.Migrations
                         .HasColumnType("int(11)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("char(8)");
 
                     b.HasKey("ID")
@@ -71,7 +69,7 @@ namespace school_register.Migrations
                     b.ToTable("class");
                 });
 
-            modelBuilder.Entity("school_register.Model.Entities.Room", b =>
+            modelBuilder.Entity("school_register.Models.Room", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
@@ -92,7 +90,7 @@ namespace school_register.Migrations
                     b.ToTable("room");
                 });
 
-            modelBuilder.Entity("school_register.Model.Entities.Student", b =>
+            modelBuilder.Entity("school_register.Models.Student", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
@@ -107,7 +105,6 @@ namespace school_register.Migrations
                         .HasColumnType("varchar(80)");
 
                     b.Property<string>("FiscalCode")
-                        .IsRequired()
                         .HasColumnType("varchar(16)");
 
                     b.Property<int?>("FkClass")
@@ -135,24 +132,24 @@ namespace school_register.Migrations
                     b.ToTable("student");
                 });
 
-            modelBuilder.Entity("school_register.Model.Entities.Class", b =>
+            modelBuilder.Entity("school_register.Models.Class", b =>
                 {
-                    b.HasOne("school_register.Model.Entities.Branch", "FkBranchNavigation")
+                    b.HasOne("school_register.Models.Branch", "FkBranchNavigation")
                         .WithMany("Classes")
                         .HasForeignKey("FkBranch")
                         .HasConstraintName("fk_classes_branch")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("school_register.Model.Entities.Room", "FkRoomNavigation")
-                        .WithMany("Class")
+                    b.HasOne("school_register.Models.Room", "FkRoomNavigation")
+                        .WithMany("Classes")
                         .HasForeignKey("FkRoom")
                         .HasConstraintName("fk_classes_rooms")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
-            modelBuilder.Entity("school_register.Model.Entities.Student", b =>
+            modelBuilder.Entity("school_register.Models.Student", b =>
                 {
-                    b.HasOne("school_register.Model.Entities.Class", "FkClassNavigation")
+                    b.HasOne("school_register.Models.Class", "FkClassNavigation")
                         .WithMany("Students")
                         .HasForeignKey("FkClass")
                         .HasConstraintName("fk_student_class")

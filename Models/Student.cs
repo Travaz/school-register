@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using school_register.Services.Extension;
 
-namespace school_register.Model.Entities
+namespace school_register.Models
 {
     public enum Gender
     {

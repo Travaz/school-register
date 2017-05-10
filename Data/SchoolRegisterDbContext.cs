@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using school_register.Model.Entities;
+using school_register.Models;
 
 namespace school_register.Data
 {
@@ -66,7 +66,7 @@ namespace school_register.Data
                     .HasColumnType("int(11)");
 
                 entity.HasOne(d => d.FkBranchNavigation)
-                    .WithMany(p => p.Class)
+                    .WithMany(p => p.Classes)
                     .HasForeignKey(d => d.FkBranch)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_classes_branch");

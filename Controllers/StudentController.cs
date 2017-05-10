@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using school_register.Data;
-using school_register.Model.Entities;
 using school_register.Services;
 using school_register.ViewModels;
 
@@ -62,7 +61,7 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(StudentsViewModel studentVM)
+        public async Task<IActionResult> Create(StudentViewModel studentVM)
         {
             if (ModelState.IsValid)
             {
@@ -87,12 +86,12 @@ namespace school_register.Controllers
             var student = await _context.Student.SingleOrDefaultAsync(m => m.ID == id);
             var studentVM = _mapper.GetStudentVM(student);
             
-            if (student == null)
+            if (studentVM == null)
             {
                 return NotFound();
             }
-            ViewData["FkClass"] = new SelectList(_context.Class, "ID", "Name", student.FkClass);
-            return View(student);
+            ViewData["FkClass"] = new SelectList(_context.Class, "ID", "Name", studentVM.FkClass);
+            return View(studentVM);
         }
 
         // POST: Student/Edit/5
@@ -100,7 +99,7 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, StudentsViewModel studentVM)
+        public async Task<IActionResult> Edit(int id, StudentViewModel studentVM)
         {
             if (id != studentVM.ID)
             {
@@ -144,12 +143,15 @@ namespace school_register.Controllers
             var student = await _context.Student
                 .Include(s => s.FkClassNavigation)
                 .SingleOrDefaultAsync(m => m.ID == id);
-            if (student == null)
+
+            var studentVM = _mapper.GetStudentVM(student);
+
+            if (studentVM == null)
             {
                 return NotFound();
             }
 
-            return View(student);
+            return View(studentVM);
         }
 
         // POST: Student/Delete/5

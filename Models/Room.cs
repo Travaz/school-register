@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace school_register.Model.Entities
+namespace school_register.Models
 {
     public partial class Room
     {

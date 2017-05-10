@@ -1,11 +1,11 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using school_register.Model.Entities;
+using school_register.Models;
 using school_register.Services.Extension;
 
 namespace school_register.ViewModels
 {
-    public class StudentsViewModel
+    public class StudentViewModel
     {
         public int ID { get; set; }
 
@@ -27,10 +27,10 @@ namespace school_register.ViewModels
         public Gender Gender { get; set; }
 
         [Required(ErrorMessage = "Birthday is required")]
-        [DisplayFormat(DataFormatString = @"{0:dd\/MM\/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Birthday { get; set; }
 
         [Required(ErrorMessage = "Class is required")]
+        [Display(Name = "Class")]
         public int? FkClass { get; set; }
 
         public string Email { get; set; }

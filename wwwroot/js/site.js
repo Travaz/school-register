@@ -14,12 +14,6 @@ $(document).ready(function () {
     // Enable collapsible ul structure in "Edit" view
     $('.collapsible').collapsible();
 
-    // Enable datepicker for dates input
-    $('.datepicker').pickadate({
-        selectMonths: true,
-        selectYears: 15,
-    });
-
     // Enable delete modal to be triggered
     $('.modal').modal({
         dismissible: true, //Closed by clicking outside

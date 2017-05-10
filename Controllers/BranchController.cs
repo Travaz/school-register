@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using school_register.Data;
-using school_register.Model.Entities;
 using school_register.Services;
 using school_register.ViewModels;
 
@@ -38,17 +37,15 @@ namespace school_register.Controllers
             }
 
             var branch = await _context.Branch
-                .Include(b => b.Class)
+                .Include(b => b.Classes)
                 .SingleOrDefaultAsync(m => m.ID == id);
-
-            var branchVM = _mapper.GetBranchVM(branch);
 
             if (branch == null)
             {
                 return NotFound();
             }
 
-            return View(branchVM);
+            return View(branch);
         }
 
         // GET: Branch/Create
@@ -66,6 +63,7 @@ namespace school_register.Controllers
         {
             if (ModelState.IsValid)
             {
+                branchVM.Icon = "default.png";
                 var branch = _mapper.GetBranch(branchVM);
 
                 _context.Add(branch);
@@ -140,12 +138,14 @@ namespace school_register.Controllers
 
             var branch = await _context.Branch
                 .SingleOrDefaultAsync(m => m.ID == id);
-            if (branch == null)
+
+            var branchVM = _mapper.GetBranchVM(branch);
+
+            if (branchVM == null)
             {
                 return NotFound();
             }
-
-            return View(branch);
+            return View(branchVM);
         }
 
         // POST: Branch/Delete/5

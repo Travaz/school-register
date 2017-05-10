@@ -14,7 +14,7 @@
             <!-- Branch image -->
             <div class="row">
                 <div class="col s12 m6 offset-m3 center">
-                    <img class="circle responsive-img" src="~/images/branches/default.png" />
+                    <img class="circle responsive-img" src="~/images/branches/@Model.Icon" />
                 </div>
             </div>
 
@@ -31,26 +31,26 @@
                     </li>
                     <li>
                         <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(branch => branch.StartDate)</div>
-                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.StartDate)</span></div>
+                        <div class="collapsible-body"><span>@Html.DisplayFor(model => model.StartDate.Date)</span></div>
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(branch => branch.Class)</div>
+                        <div class="collapsible-header"><i class="material-icons">perm_identity</i>@Html.DisplayNameFor(branch => branch.Classes)</div>
                         <div class="collapsible-body">
 
                             <div class="collection">
 
                                 
-                                @foreach (var classes in Model.Class)
-                                {
+                                    @foreach (var classes in Model.Classes)
+                                    {
 
-                                    <a asp-controller="Class" asp-action="Details" asp-route-id="@classes.ID" class="collection-item avatar">
-                                        <img src="~/images/classes/classes.png" alt="" class="circle">
-                                        <span class="title">@classes.Name</span>
-                                        <p>
-                                            @classes.FkRoomNavigation.NumeroAula
-                                        </p>
-                                    </a>
-                                }
+                                        <a asp-controller="Class" asp-action="Details" asp-route-id="@classes.ID" class="collection-item avatar">
+                                            <img src="~/images/classes/classes.png" alt="" class="circle">
+                                            <span class="title">@classes.Name</span>
+                                            <p>
+                                                @classes.FkBranchNavigation.Name
+                                            </p>
+                                        </a>
+                                    }                              
 
                             </div>
                             
@@ -88,7 +88,7 @@
             </div>
 
             <!-- Modal Structure -->
-            @Html.Partial("Delete", Model)
+            @Html.Partial("Delete", _mapper.GetBranchVM(Model))
 
         </div>
     </div>
