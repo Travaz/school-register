@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using school_register.Data;
 using school_register.Model.Entities;
+using school_register.Services;
+using school_register.ViewModels;
 
 namespace school_register.Controllers
 {
     public class StudentController : Controller
     {
         private readonly SchoolRegisterDbContext _context;
+        private readonly IViewModelMap _mapper;
 
-        public StudentController(SchoolRegisterDbContext context)
+        public StudentController(SchoolRegisterDbContext context, IViewModelMap mapper)
         {
             _context = context;    
+            _mapper = mapper;
         }
 
         // GET: Student
@@ -37,6 +41,7 @@ namespace school_register.Controllers
             var student = await _context.Student
                 .Include(s => s.FkClassNavigation)
                 .SingleOrDefaultAsync(m => m.ID == id);
+
             if (student == null)
             {
                 return NotFound();
@@ -57,16 +62,18 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FiscalCode,Gender,Name,Surname,Birthday,Age,FkClass,Email")] Student student)
+        public async Task<IActionResult> Create(StudentsViewModel studentVM)
         {
             if (ModelState.IsValid)
             {
+                var student = _mapper.GetStudent(studentVM);
+
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["FkClass"] = new SelectList(_context.Class, "ID", "Name", student.FkClass);
-            return View(student);
+            ViewData["FkClass"] = new SelectList(_context.Class, "ID", "Name", studentVM.FkClass);
+            return View(studentVM);
         }
 
         // GET: Student/Edit/5
@@ -78,6 +85,8 @@ namespace school_register.Controllers
             }
 
             var student = await _context.Student.SingleOrDefaultAsync(m => m.ID == id);
+            var studentVM = _mapper.GetStudentVM(student);
+            
             if (student == null)
             {
                 return NotFound();
@@ -91,9 +100,9 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FiscalCode,Gender,Name,Surname,Age,Birthday,FkClass,Email")] Student student)
+        public async Task<IActionResult> Edit(int id, StudentsViewModel studentVM)
         {
-            if (id != student.ID)
+            if (id != studentVM.ID)
             {
                 return NotFound();
             }
@@ -102,12 +111,14 @@ namespace school_register.Controllers
             {
                 try
                 {
+                    var student = _mapper.GetStudent(studentVM);
+
                     _context.Update(student);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentExists(student.ID))
+                    if (!StudentExists(studentVM.ID))
                     {
                         return NotFound();
                     }
@@ -118,8 +129,8 @@ namespace school_register.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["FkClass"] = new SelectList(_context.Class, "ID", "Name", student.FkClass);
-            return View(student);
+            ViewData["FkClass"] = new SelectList(_context.Class, "ID", "Name", studentVM.FkClass);
+            return View(studentVM);
         }
 
         // GET: Student/Delete/5

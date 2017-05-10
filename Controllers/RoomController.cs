@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using school_register.Data;
 using school_register.Model.Entities;
+using school_register.Services;
+using school_register.ViewModels;
 
 namespace school_register.Controllers
 {
     public class RoomController : Controller
     {
         private readonly SchoolRegisterDbContext _context;
+        private readonly IViewModelMap _mapper;
 
-        public RoomController(SchoolRegisterDbContext context)
+        public RoomController(SchoolRegisterDbContext context, IViewModelMap mapper)
         {
             _context = context;    
+            _mapper = mapper;
         }
 
         // GET: Room
@@ -36,6 +40,9 @@ namespace school_register.Controllers
             var room = await _context.Room
                 .Include(r => r.Classes)
                 .SingleOrDefaultAsync(m => m.ID == id);
+
+            var roomVM = _mapper.GetRoomVM(room);
+
             if (room == null)
             {
                 return NotFound();
@@ -55,15 +62,17 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NumeroAula,Floor,Lim")] Room room)
+        public async Task<IActionResult> Create(RoomViewModel roomVM)
         {
             if (ModelState.IsValid)
             {
+                var room = _mapper.GetRoom(roomVM);
+
                 _context.Add(room);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(room);
+            return View(roomVM);
         }
 
         // GET: Room/Edit/5
@@ -87,9 +96,9 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,NumeroAula,Floor,Lim")] Room room)
+        public async Task<IActionResult> Edit(int id, RoomViewModel roomVM)
         {
-            if (id != room.ID)
+            if (id != roomVM.ID)
             {
                 return NotFound();
             }
@@ -98,12 +107,14 @@ namespace school_register.Controllers
             {
                 try
                 {
+                    var room = _mapper.GetRoom(roomVM);
+
                     _context.Update(room);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RoomExists(room.ID))
+                    if (!RoomExists(roomVM.ID))
                     {
                         return NotFound();
                     }
@@ -114,7 +125,7 @@ namespace school_register.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return View(room);
+            return View(roomVM);
         }
 
         // GET: Room/Delete/5

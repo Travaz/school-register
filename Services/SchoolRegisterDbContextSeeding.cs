@@ -88,21 +88,21 @@ namespace school_register.Services
                 {
                     ID = 2,
                     Name = "4AM",
-                    FkBranch = 2,
+                    FkBranch = 3,
                     FkRoom = 2,
                 };
                 Class QuintaAM = new Class()
                 {
                     ID = 3,
                     Name = "5AM",
-                    FkBranch = 2,
+                    FkBranch = 3,
                     FkRoom = 3,
                 };
                 Class TerzaCC = new Class()
                 {
                     ID = 4,
                     Name = "3CC",
-                    FkBranch = 3,
+                    FkBranch = 2,
                     FkRoom = 4,
                 };
 

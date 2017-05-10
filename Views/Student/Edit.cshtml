@@ -1,4 +1,4 @@
-@model Student
+@model StudentsViewModel
 
 @{
     ViewBag.Title = $"Edit - {Model.Name} {Model.Surname}";
@@ -65,7 +65,7 @@
                     <!-- Student.Birthday -->
                     <div class="input-field col s12 m6">
                         <i class="material-icons prefix">today</i>
-                        <input asp-for="Birthday" type="date" class="datepicker">
+                        <input asp-for="Birthday" asp-format="{yyyy-MM-dd}" type="date" class="datepicker">
                         <span class="red-text" asp-validation-for="Birthday"></span>
                         <label asp-for="Birthday" for="birthday" class="active">Birthday</label>
                     </div>

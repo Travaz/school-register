@@ -13,10 +13,7 @@ namespace school_register.Model.Entities
         }
 
         public int ID { get; set; }
-        [ClassNameValidation]
-        [Required(ErrorMessage = "Class name required")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Branch of the class required")]
         public int? FkBranch { get; set; }
         public int? FkRoom { get; set; }
 

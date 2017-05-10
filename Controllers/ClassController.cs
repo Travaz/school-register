@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using school_register.Data;
 using school_register.Model.Entities;
+using school_register.Services;
+using school_register.ViewModels;
 
 namespace school_register.Controllers
 {
     public class ClassController : Controller
     {
         private readonly SchoolRegisterDbContext _context;
+        private readonly IViewModelMap _mapper;
 
-        public ClassController(SchoolRegisterDbContext context)
+        public ClassController(SchoolRegisterDbContext context, IViewModelMap mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: Class
@@ -62,17 +66,19 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,FkBranch,FkRoom")] Class _class)
+        public async Task<IActionResult> Create(ClassViewModel classVM)
         {
             if (ModelState.IsValid)
             {
+                var _class = _mapper.GetClass(classVM);
+
                 _context.Add(_class);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["FkBranch"] = new SelectList(_context.Branch, "ID", "Name", _class.FkBranch);
-            ViewData["FkRoom"] = new SelectList(_context.Room, "ID", "NumeroAula", _class.FkRoom);
-            return View(_class);
+            ViewData["FkBranch"] = new SelectList(_context.Branch, "ID", "Name", classVM.FkBranch);
+            ViewData["FkRoom"] = new SelectList(_context.Room, "ID", "NumeroAula", classVM.FkRoom);
+            return View(classVM);
         }
 
         // GET: Class/Edit/5
@@ -84,13 +90,15 @@ namespace school_register.Controllers
             }
 
             var _class = await _context.Class.SingleOrDefaultAsync(m => m.ID == id);
-            if (_class == null)
+            var _classVM = _mapper.GetClassVM(_class);
+
+            if (_classVM == null)
             {
                 return NotFound();
             }
-            ViewData["FkBranch"] = new SelectList(_context.Branch, "ID", "Name", _class.FkBranch);
-            ViewData["FkRoom"] = new SelectList(_context.Room, "ID", "NumeroAula", _class.FkRoom);
-            return View(_class);
+            ViewData["FkBranch"] = new SelectList(_context.Branch, "ID", "Name", _classVM.FkBranch);
+            ViewData["FkRoom"] = new SelectList(_context.Room, "ID", "NumeroAula", _classVM.FkRoom);
+            return View(_classVM);
         }
 
         // POST: Class/Edit/5
@@ -98,9 +106,9 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id, [Bind("ID, Name,FkBranch,FkRoom")] Class _class)
+        public async Task<IActionResult> Edit(int? id, ClassViewModel classVM)
         {
-            if (id != _class.ID)
+            if (id != classVM.ID)
             {
                 return NotFound();
             }
@@ -109,13 +117,14 @@ namespace school_register.Controllers
             {
                 try
                 {
+                    var _class = _mapper.GetClass(classVM);
+
                     _context.Update(_class);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClassExists(_class.ID
-                    ))
+                    if (!ClassExists(classVM.ID))
                     {
                         return NotFound();
                     }
@@ -126,9 +135,9 @@ namespace school_register.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["FkBranch"] = new SelectList(_context.Branch, "ID", "Name", _class.FkBranch);
-            ViewData["FkRoom"] = new SelectList(_context.Room, "ID", "NumeroAula", _class.FkRoom);
-            return View(_class);
+            ViewData["FkBranch"] = new SelectList(_context.Branch, "ID", "Name", classVM.FkBranch);
+            ViewData["FkRoom"] = new SelectList(_context.Room, "ID", "NumeroAula", classVM.FkRoom);
+            return View(classVM);
         }
 
         // GET: Class/Delete/5

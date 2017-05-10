@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using school_register.Data;
 using school_register.Model.Entities;
+using school_register.Services;
+using school_register.ViewModels;
 
 namespace school_register.Controllers
 {
     public class BranchController : Controller
     {
         private readonly SchoolRegisterDbContext _context;
+        private readonly IViewModelMap _mapper;
 
-        public BranchController(SchoolRegisterDbContext context)
+        public BranchController(SchoolRegisterDbContext context, IViewModelMap mapper)
         {
             _context = context;    
+            _mapper = mapper;
         }
 
         // GET: Branch
@@ -36,12 +40,15 @@ namespace school_register.Controllers
             var branch = await _context.Branch
                 .Include(b => b.Class)
                 .SingleOrDefaultAsync(m => m.ID == id);
+
+            var branchVM = _mapper.GetBranchVM(branch);
+
             if (branch == null)
             {
                 return NotFound();
             }
 
-            return View(branch);
+            return View(branchVM);
         }
 
         // GET: Branch/Create
@@ -55,16 +62,17 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,StartDate")] Branch branch)
+        public async Task<IActionResult> Create(BranchViewModel branchVM)
         {
             if (ModelState.IsValid)
             {
-                branch.Icon = "default.png";
+                var branch = _mapper.GetBranch(branchVM);
+
                 _context.Add(branch);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(branch);
+            return View(branchVM);
         }
 
         // GET: Branch/Edit/5
@@ -76,11 +84,13 @@ namespace school_register.Controllers
             }
 
             var branch = await _context.Branch.SingleOrDefaultAsync(m => m.ID == id);
-            if (branch == null)
+            var branchVM = _mapper.GetBranchVM(branch);
+
+            if (branchVM == null)
             {
                 return NotFound();
             }
-            return View(branch);
+            return View(branchVM);
         }
 
         // POST: Branch/Edit/5
@@ -88,9 +98,9 @@ namespace school_register.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id, [Bind("ID,Name,Description,StartDate,Icon")] Branch branch)
+        public async Task<IActionResult> Edit(int? id, BranchViewModel branchVM)
         {
-            if (id != branch.ID)
+            if (id != branchVM.ID)
             {
                 return NotFound();
             }
@@ -99,12 +109,14 @@ namespace school_register.Controllers
             {
                 try
                 {
+                    var branch = _mapper.GetBranch(branchVM);
+                    
                     _context.Update(branch);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BranchExists(branch.ID))
+                    if (!BranchExists(branchVM.ID))
                     {
                         return NotFound();
                     }
@@ -115,7 +127,7 @@ namespace school_register.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return View(branch);
+            return View(branchVM);
         }
 
         // GET: Branch/Delete/5

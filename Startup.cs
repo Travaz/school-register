@@ -31,8 +31,9 @@ namespace school_register
             services.AddDbContext<SchoolRegisterDbContext>(options => 
                     options.UseMySql(Configuration.GetConnectionString("Local")));
 
-            // Db services
+            // HTTP request services services
             services.AddScoped<ISchoolRegisterRepository, SchoolRegisterRepository>();
+            services.AddScoped<IViewModelMap, ViewModelMap>();
             services.AddTransient<SchoolRegisterDbContextSeeding>();
 
             // Add framework services.

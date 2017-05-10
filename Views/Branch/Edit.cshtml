@@ -1,4 +1,4 @@
-@model Branch
+@model BranchViewModel
 
 @{
     ViewBag.Title = $"Edit - {Model.Name}";
@@ -34,7 +34,7 @@
 
                     <!-- Branch.StartDate -->
                     <div class="input-field col s12 m6">
-                        <input asp-for="StartDate" type="date" class="validate">
+                        <input asp-for="StartDate" type="date" class="datepicker validate">
                         <span class="red-text" asp-validation-for="StartDate"></span>
                         <label asp-for="StartDate" class="active">Start Date</label>
                     </div>
