@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using school_register.Data;
 using school_register.Services;
+using System;
+using school_register.Services.Extension;
 
 namespace school_register
 {
@@ -28,8 +30,9 @@ namespace school_register
         public void ConfigureServices(IServiceCollection services)
         {
             // DbContext services
-            services.AddDbContext<SchoolRegisterDbContext>(options => 
-                    options.UseMySql(Configuration.GetConnectionString("Local")));
+
+            services.AddDbContext<SchoolRegisterDbContext>(options =>
+                    options.UseMySql(Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb").ConnectionStringMySQL()));
 
             // HTTP request services services
             services.AddScoped<ISchoolRegisterRepository, SchoolRegisterRepository>();
